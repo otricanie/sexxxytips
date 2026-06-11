@@ -26,7 +26,7 @@ if [ -n "$TOKEN" ]; then
   cat > /opt/sexytips/tg_config.json <<EOF
 {
   "token": "$TOKEN",
-  "allowed": ["@god_kitty"],
+  "allowed": ["@god_kitty", "@velsenpai"],
   "chats": { "god_kitty": 401966925 }
 }
 EOF

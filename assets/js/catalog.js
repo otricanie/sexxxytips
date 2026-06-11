@@ -309,8 +309,14 @@
         }
         err.hidden = true;
         addToCart(p, selSize || p.sizes[0]);
-        closeModal();
-        openCart();
+        // подтверждение прямо на кнопке; модалку НЕ закрываем, корзину НЕ открываем
+        addBtn.classList.add('added');
+        addBtn.querySelector('span').innerHTML = '✓ В КОРЗИНЕ';
+        clearTimeout(addBtn._t);
+        addBtn._t = setTimeout(() => {
+          addBtn.classList.remove('added');
+          addBtn.querySelector('span').innerHTML = 'В КОРЗИНУ <span class="arr">→</span>';
+        }, 1900);
       });
     }
 

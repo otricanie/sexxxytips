@@ -348,6 +348,9 @@ section{position:relative}
 .btn--block{width:100%;justify-content:center}
 .btn .arr{transition:transform .35s var(--ease)}
 .btn:hover .arr{transform:translateX(5px)}
+/* подтверждение «добавлено в корзину» */
+.btn.add-cart.added{color:#000;border-color:var(--acid)}
+.btn.add-cart.added::before{background:var(--acid);transform:translateY(0)}
 
 /* =====================================================================
    GALLERY / LOOKBOOK
