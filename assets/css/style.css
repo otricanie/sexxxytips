@@ -664,6 +664,9 @@ section{position:relative}
   /* на телефоне убираем огромные вертикальные отступы между секциями */
   .drop{padding-bottom:46px}
   .look{padding-top:40px}
+  /* крупнее заголовки секций на телефоне */
+  .manifesto__big{font-size:10vw;letter-spacing:-.05em}
+  .look__head h2{font-size:15vw}
 }
 @media(max-width:560px){
   :root{--gut:16px}
