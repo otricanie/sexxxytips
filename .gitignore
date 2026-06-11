@@ -6,3 +6,7 @@ _t*.html
 
 CLAUDE.md
 DEPLOY.md
+
+deploy.sh
+dev.sh
+install.sh
