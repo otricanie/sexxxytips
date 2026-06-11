@@ -657,8 +657,9 @@ section{position:relative}
   .hero__coord{text-align:left;font-size:9.5px;line-height:1.55}
   /* заголовок крупнее, блок с кнопкой уезжает вниз */
   .hero__main{flex:1;display:flex;flex-direction:column;margin:22px 0 0!important}
-  .hero__title{font-size:27vw;letter-spacing:-.04em}
-  .hero__sub{margin-top:auto;padding:22px 0 26px}
+  .hero__title{flex:1;display:flex;flex-direction:column;justify-content:center;
+    font-size:25vw;letter-spacing:-.04em;margin:0}
+  .hero__sub{margin-top:0;padding:22px 0 26px}
   .hero__scroll{display:none}
 }
 @media(max-width:560px){
