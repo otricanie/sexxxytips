@@ -3,3 +3,6 @@ tg_config.json
 orders.json
 .DS_Store
 _t*.html
+
+CLAUDE.md
+DEPLOY.md
