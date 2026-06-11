@@ -266,7 +266,7 @@ section{position:relative}
 /* =====================================================================
    MANIFESTO
    ===================================================================== */
-.manifesto{padding:clamp(70px,12vh,150px) 0;position:relative;overflow:hidden}
+.manifesto{padding:clamp(44px,6.5vh,84px) 0;position:relative;overflow:hidden}
 .manifesto__big{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.92;
   letter-spacing:-.02em;font-size:clamp(30px,6.2vw,104px);max-width:18ch}
 .manifesto__big .o{color:transparent;-webkit-text-stroke:1px var(--mut)}
@@ -290,7 +290,7 @@ section{position:relative}
 /* =====================================================================
    DROP / FEATURED
    ===================================================================== */
-.drop{padding:clamp(60px,9vh,120px) 0 clamp(120px,18vh,220px);border-top:1px solid var(--line)}
+.drop{padding:clamp(60px,9vh,120px) 0 clamp(56px,8vh,100px);border-top:1px solid var(--line)}
 .drop__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:46px}
 .drop__head h2{font-family:var(--f-disp);font-weight:900;font-size:clamp(38px,8vw,118px);line-height:.84;text-transform:uppercase;letter-spacing:-.03em}
 .drop__head .meta{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;color:var(--mut);text-align:right;line-height:1.9;text-transform:uppercase}
@@ -661,6 +661,9 @@ section{position:relative}
     font-size:25vw;letter-spacing:-.04em;margin:0}
   .hero__sub{margin-top:0;padding:22px 0 26px}
   .hero__scroll{display:none}
+  /* на телефоне убираем огромные вертикальные отступы между секциями */
+  .drop{padding-bottom:46px}
+  .look{padding-top:40px}
 }
 @media(max-width:560px){
   :root{--gut:16px}
