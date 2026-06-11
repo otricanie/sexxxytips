@@ -1,0 +1,11 @@
+# Замени ТВОЙ-ДОМЕН.ru на свой домен (в двух местах).
+# Caddy сам получит и будет продлевать HTTPS-сертификат Let's Encrypt.
+
+ТВОЙ-ДОМЕН.ru {
+	reverse_proxy localhost:8000
+	encode gzip
+}
+
+www.ТВОЙ-ДОМЕН.ru {
+	redir https://ТВОЙ-ДОМЕН.ru{uri} permanent
+}

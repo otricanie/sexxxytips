@@ -1,0 +1,15 @@
+[Unit]
+Description=SEXY TIPS site + orders
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/sexytips
+ExecStart=/usr/bin/python3 /opt/sexytips/server.py 8000
+Restart=always
+RestartSec=3
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target

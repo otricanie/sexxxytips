@@ -1,0 +1,5 @@
+# секреты и данные — НЕ в репозиторий
+tg_config.json
+orders.json
+.DS_Store
+_t*.html
