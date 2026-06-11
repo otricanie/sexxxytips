@@ -12,10 +12,18 @@ Telegram-уведомления:
 """
 import json
 import os
+import socket
 import threading
 import urllib.parse
 import urllib.request
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+
+# У сервера нет рабочего IPv6 → принудительно резолвим только IPv4,
+# иначе исходящие запросы (Telegram) падают, пытаясь идти по IPv6.
+_orig_getaddrinfo = socket.getaddrinfo
+def _ipv4_only(host, port, family=0, type=0, proto=0, flags=0):
+    return _orig_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
+socket.getaddrinfo = _ipv4_only
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 ORDERS = os.path.join(ROOT, 'orders.json')
@@ -110,10 +118,28 @@ PRIVATE = ('/tg_config.json', '/orders.json', '/server.py', '/DEPLOY.md', '/READ
 
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
-        clean = self.path.split('?')[0].rstrip('/')
-        if clean in PRIVATE or clean.startswith('/deploy'):
+        raw = self.path.split('?', 1)
+        path = raw[0]
+        qs = ('?' + raw[1]) if len(raw) > 1 else ''
+        if path.rstrip('/') in PRIVATE or path.startswith('/deploy'):
             self.send_error(404)
             return
+        # чистые адреса: /index.html → /, /catalog.html → /catalog
+        if path == '/index.html':
+            self.send_response(301)
+            self.send_header('Location', '/' + qs)
+            self.end_headers()
+            return
+        if path.endswith('.html'):
+            self.send_response(301)
+            self.send_header('Location', path[:-5] + qs)
+            self.end_headers()
+            return
+        # /catalog → catalog.html (если есть такой файл)
+        if path != '/' and '.' not in os.path.basename(path):
+            candidate = path.lstrip('/') + '.html'
+            if os.path.isfile(os.path.join(ROOT, candidate)):
+                self.path = '/' + candidate + qs
         super().do_GET()
 
     def end_headers(self):
