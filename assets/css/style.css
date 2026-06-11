@@ -651,8 +651,11 @@ section{position:relative}
   body.menu-open .burger i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
   body.menu-open .burger i:nth-child(2){opacity:0}
   body.menu-open .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-  .hero__top{flex-direction:column;gap:18px}
-  .hero__coord{text-align:left}
+  .hero{justify-content:flex-start}
+  .hero__top{flex:none;flex-direction:column;gap:14px;padding-top:clamp(86px,15vh,120px)}
+  .hero__coord{text-align:left;line-height:1.7}
+  .hero__main{margin-top:44px!important;margin-bottom:48px!important}
+  .hero__sub{margin-top:26px;padding:26px 0 0}
   .hero__scroll{display:none}
 }
 @media(max-width:560px){
@@ -660,6 +663,16 @@ section{position:relative}
   .hero__sub{flex-direction:column;gap:10px}
   .drop__buy,.event__foot{flex-direction:column;align-items:flex-start}
   .lineup{grid-template-columns:1fr}
+  /* корзина на телефоне — на всю ширину, без обрезки справа */
+  .cart__panel{width:100%;padding:22px 14px;gap:14px}
+  .cart__row{gap:10px}
+  .cart__row img{width:50px;height:50px}
+  .cart__row .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cart__qty{gap:6px}
+  .cart__qty button{width:24px;height:24px}
+  .cart__rm{padding:2px}
+  .cart__total b{font-size:22px}
+  .cart__head h4{font-size:22px}
 }
 
 /* utility */
