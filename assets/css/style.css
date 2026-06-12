@@ -373,8 +373,6 @@ section{position:relative}
   opacity:0;transform:translateY(6px);transition:.4s var(--ease)}
 .look__cell:hover figcaption{opacity:1;transform:none}
 .look__cell::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.5));pointer-events:none}
-/* видео — первая ячейка коллажа: на всю ширину сетки, по центру, шириной в одну плитку (стоит ПОСЛЕ .look__cell — каскад!) */
-.look__cell--feat{column-span:all;width:min(100%,340px);margin:0 auto 12px}
 
 /* =====================================================================
    EVENT (СПУТНИЦА)
