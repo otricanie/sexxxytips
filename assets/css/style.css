@@ -275,6 +275,10 @@ section{position:relative}
   margin-top:clamp(40px,7vh,96px)}
 .manifesto__lead b{color:var(--bone);font-weight:800}
 .manifesto__lead .hot{color:var(--hot)}
+.manifesto__row{display:flex;flex-direction:column;gap:34px}
+@media(min-width:900px){.manifesto__row{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:40px}.manifesto__text{flex:1}}
+.manifesto__dna{flex:none;align-self:flex-start}
+@media(min-width:900px){.manifesto__dna{align-self:flex-end;margin-bottom:6px}}
 .manifesto__grid{display:grid;grid-template-columns:1fr;gap:40px;margin-top:54px}
 @media(min-width:900px){.manifesto__grid{grid-template-columns:1.3fr .7fr;gap:60px}}
 .manifesto__col p{font-size:clamp(17px,1.7vw,23px);line-height:1.6;color:var(--mut);max-width:44ch}

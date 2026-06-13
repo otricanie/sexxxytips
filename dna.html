@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ДНК — SEXY TIPS</title>
+<meta name="description" content="ДНК SEXY TIPS — история и суть бренда: про самокрутку, про Машу, про то, как родилась субкультура секси типов.">
+<meta name="theme-color" content="#060507">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90'%3E%3Cpath fill='%23ff1f3d' d='M50 84C50 84 6 56 6 28 6 12 18 4 30 8 40 11 47 20 50 28 53 20 60 11 70 8 82 4 94 12 94 28 94 56 50 84 50 84Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* ===== DNA — сквозная лента со скролл-историей ===== */
+  .dna{position:relative;background:var(--void);overflow:hidden}
+
+  /* нить на фоне */
+  .dna__thread{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .dna__thread svg{width:100%;height:100%;display:block;
+    filter:drop-shadow(0 0 6px rgba(255,31,61,.5)) drop-shadow(0 0 20px rgba(255,31,61,.22))}
+  .dna__bead{position:absolute;left:0;top:0;width:26px;height:24px;margin:-12px 0 0 -13px;z-index:1;pointer-events:none;
+    filter:drop-shadow(0 0 12px rgba(255,31,61,.9));transition:opacity .4s}
+  .dna__bead svg{width:100%;height:100%;display:block}
+
+  .dna__flow{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,60px) clamp(60px,10vh,120px)}
+
+  /* интро */
+  .dna__hero{min-height:96svh;display:flex;flex-direction:column;justify-content:center;gap:22px;max-width:900px}
+  .dna__hero .tag{font-family:var(--f-mono);font-size:clamp(11px,1.3vw,14px);letter-spacing:.34em;text-transform:uppercase;color:var(--hot);display:flex;align-items:center;gap:14px;border:0;background:none;padding:0}
+  .dna__hero .tag i{width:42px;height:1px;background:var(--hot)}
+  .dna__hero h1{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.86;letter-spacing:-.03em;font-size:clamp(48px,10.5vw,144px)}
+  .dna__hero .lead{font-family:var(--f-mono);font-size:clamp(12px,1.4vw,15px);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);max-width:52ch;line-height:2}
+  .dna__hint{font-family:var(--f-mono);font-size:11px;letter-spacing:.3em;color:var(--mut2);text-transform:uppercase;margin-top:18px}
+
+  /* текстовые куски — узкие колонки, гуляют влево/вправо вдоль нити */
+  .beat{max-width:480px;margin:clamp(70px,12vh,150px) 0}
+  .beat.r{margin-left:auto;text-align:right}
+  .beat__num{font-family:var(--f-mono);font-size:12px;letter-spacing:.3em;color:var(--hot);text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .beat.r .beat__num{justify-content:flex-end}
+  .beat__num i{width:30px;height:1px;background:var(--hot)}
+  .beat h2{font-family:var(--f-disp);font-weight:800;text-transform:uppercase;line-height:1;letter-spacing:-.02em;font-size:clamp(26px,4vw,46px);margin-bottom:22px}
+  .beat p{font-family:var(--f-body);font-size:clamp(15.5px,1.45vw,19px);line-height:1.78;color:var(--chrome2)}
+  .beat p+p{margin-top:18px}
+  .beat .hot{color:var(--hot);font-weight:600}
+
+  /* большие выноски-цитаты поверх нити */
+  .quote{margin:clamp(80px,15vh,200px) auto;max-width:1000px;text-align:center}
+  .quote p{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.98;letter-spacing:-.02em;font-size:clamp(30px,6vw,82px)}
+  .quote .o{color:transparent;-webkit-text-stroke:1.3px var(--bone)}
+  .quote .hot{color:var(--hot)}
+
+  /* фото — въезжают со сторон */
+  .shot{position:relative;width:min(420px,80%);margin:clamp(50px,8vh,110px) 0;overflow:hidden;border:1px solid var(--line-strong)}
+  .shot.r{margin-left:auto}
+  .shot.wide{width:min(680px,92%)}
+  .shot img{width:100%;display:block;filter:grayscale(.2) contrast(1.04) brightness(.92)}
+  .shot figcaption{position:absolute;left:12px;bottom:10px;font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone);text-shadow:0 1px 8px #000}
+
+  /* вырезки из канала — будто наскоро пришпилены степлером */
+  .clip{width:300px;max-width:82%;padding:20px 20px 16px;background:#e9e3d4;color:#181318;
+    box-shadow:0 18px 40px rgba(0,0,0,.6);font-family:var(--f-body);z-index:3}
+  .clip__t{font-style:italic;font-size:11.5px;letter-spacing:.02em;color:#8a1f2e;margin-bottom:9px;line-height:1.3}
+  .clip p{font-size:14.5px;line-height:1.5;color:#1c1620}
+  .clip__src{margin-top:12px;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#857a6b}
+  .clip__staple{position:absolute;top:-5px;left:50%;width:34px;height:9px;transform:translateX(-50%) rotate(-8deg);
+    background:linear-gradient(180deg,#f4f4f7,#bcbcc4 55%,#7c7c84);border-radius:2px;box-shadow:0 3px 6px rgba(0,0,0,.5)}
+  .clip__staple::before,.clip__staple::after{content:"";position:absolute;top:7px;width:4px;height:6px;background:#6b6b73;border-radius:0 0 1px 1px}
+  .clip__staple::before{left:1px}.clip__staple::after{right:1px}
+  @media(min-width:761px){
+    .beat{position:relative}
+    .clip{position:absolute;top:4px}
+    .clip--right{left:calc(100% + 46px);transform:rotate(2.3deg)}
+    .clip--left{right:calc(100% + 46px);transform:rotate(-2.6deg)}
+    .clip--right .clip__staple{transform:translateX(-50%) rotate(7deg)}
+  }
+  @media(max-width:760px){
+    .clip{position:static;width:100%;max-width:100%;margin:clamp(30px,5vh,54px) 0;transform:rotate(-1.4deg)}
+  }
+
+  /* финал */
+  .dna__end{min-height:80svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:26px}
+  .dna__end h2{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.96;letter-spacing:-.03em;font-size:clamp(34px,7vw,104px);max-width:18ch}
+  .dna__end .hot{color:var(--hot)}
+
+  /* анимации появления */
+  [data-rise]{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  [data-rise].in{opacity:1;transform:none}
+  [data-sl]{opacity:0;transform:translateX(-70px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  [data-sr]{opacity:0;transform:translateX(70px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  [data-sl].in,[data-sr].in{opacity:1;transform:none}
+
+  @media(max-width:760px){
+    .beat,.shot{max-width:100%;width:100%;text-align:left!important;margin:clamp(48px,9vh,90px) 0}
+    .beat.r{margin-left:0}.beat.r .beat__num{justify-content:flex-start}
+    .shot.r{margin-left:0}
+    [data-sl],[data-sr]{transform:translateY(40px)}
+  }
+  @media (prefers-reduced-motion:reduce){[data-rise],[data-sl],[data-sr]{opacity:1!important;transform:none!important}}
+</style>
+<noscript><style>[data-rise],[data-sl],[data-sr]{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+
+<div class="fx fx-grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><i></i></div>
+
+<header class="hdr scrolled">
+  <a class="brand" href="/" data-cursor="домой">
+    <svg class="brand__heart spin" viewBox="0 0 100 90" aria-hidden="true"><path fill="#ff1f3d" d="M50 84C50 84 6 56 6 28 6 12 18 4 30 8 40 11 47 20 50 28 53 20 60 11 70 8 82 4 94 12 94 28 94 56 50 84 50 84Z"/></svg>
+    <span class="brand__name">SEXY TIPS<small>СУБКУЛЬТУРА</small></span>
+  </a>
+  <nav class="nav">
+    <a href="/"><i class="dot"></i>ГЛАВНАЯ</a>
+    <a href="/dna" class="active"><i class="dot"></i>ДНК</a>
+    <a href="/catalog"><i class="dot"></i>КАТАЛОГ</a>
+  </nav>
+  <a class="hdr__cta" href="/catalog" data-magnet="0.3" data-cursor="в магазин">МАГАЗИН</a>
+  <button class="burger" aria-label="Меню"><i></i><i></i><i></i></button>
+</header>
+
+<nav class="mnav">
+  <a href="/">ГЛАВНАЯ</a>
+  <a href="/dna">ДНК</a>
+  <a href="/catalog">КАТАЛОГ</a>
+  <div class="mfoot">@ssexytips · МОСКВА · 2026</div>
+</nav>
+
+<main class="dna">
+  <!-- нить на фоне -->
+  <div class="dna__thread" aria-hidden="true">
+    <svg viewBox="0 0 100 1400" preserveAspectRatio="none">
+      <path id="thread" fill="none" stroke="#ff1f3d" stroke-width="2" vector-effect="non-scaling-stroke"
+        d="M50,0 C14,70 86,140 50,210 C14,280 86,350 50,420 C14,490 86,560 50,630
+           C14,700 86,770 50,840 C14,910 86,980 50,1050 C14,1120 86,1190 50,1260
+           C30,1320 70,1360 50,1400"/>
+    </svg>
+  </div>
+  <div class="dna__bead" id="bead" aria-hidden="true">
+    <svg viewBox="0 0 100 90"><path fill="#ff1f3d" d="M50 84C50 84 6 56 6 28 6 12 18 4 30 8 40 11 47 20 50 28 53 20 60 11 70 8 82 4 94 12 94 28 94 56 50 84 50 84Z"/></svg>
+  </div>
+
+  <div class="dna__flow">
+
+    <section class="dna__hero">
+      <div class="tag" data-rise><i></i>ДНК БРЕНДА</div>
+      <h1 data-rise>НЕ ДЛЯ<br>СКРОМНЫХ</h1>
+      <p class="lead" data-rise>история и суть sexy tips — честно, из первых рук. бренд придумали вдвоём — <span class="hot">маша и валера</span>, оба у истоков. про самокрутку, про любовь и про то, как из этого выросла целая субкультура. листай — всё связано одной нитью.</p>
+      <div class="dna__hint" data-rise>↓ листай</div>
+    </section>
+
+    <section class="beat">
+      <div class="beat__num" data-rise><i></i>01 · ТИПСЫ</div>
+      <h2 data-rise>самые пиздатые типсы в жизни</h2>
+      <p data-rise>Я бросил сигареты несколько лет назад, но всегда успешно заменял их — кальяном, айкосом, всякой ерундой, пока не познакомился с самокруткой. Странно: самокрутка же почти сигарета — но не сигарета. Она стала спасением на тусовках, когда выпил и хочется чего-нибудь покрепче.</p>
+      <p data-rise>Для самокрутки нужны бумага, табак и фильтр. А иногда — <span class="hot">типс</span>. И однажды мне посчастливилось встретить самые пиздатые типсы в жизни — <span class="hot">sexy tips</span>. Те самые женщины с принтов, напечатанные на картонке: скручиваешь и красиво скуриваешь. Я купил сразу две пачки и крутил по особым случаям.</p>
+      <div class="clip clip--right"><span class="clip__staple"></span><div class="clip__t">однажды у меня был секс с пухленькой девушкой</div><p>вписка полным ходом, все разошлись — она осталась. дверь захлопнулась, и началось. секс животный и жёсткий, а ощущения мягкие. очень понравилось.</p><div class="clip__src">из канала · @ssexytips · 18+</div></div>
+    </section>
+
+    <figure class="shot r" data-sr><img src="assets/img/tg_19.jpg" alt="sexy tips"><figcaption>ИЗ КАНАЛА · @SSEXYTIPS</figcaption></figure>
+
+    <section class="beat r">
+      <div class="beat__num" data-rise><i></i>02 · ТРАДИЦИЯ</div>
+      <h2 data-rise>дарил самому яркому</h2>
+      <p data-rise>Была у меня фишка. Я дарил такую типсу самому яркому, запоминающемуся, классному человеку на тусовке. От души. Это значило: <span class="hot">ты свой, у нас один вайб</span>. Я просил скрутить её в классный момент жизни — и вспомнить обо мне.</p>
+      <p data-rise>Почти никто не курил. Все говорили, что оставят на память — и клали в паспорт, в кошелёк, под чехол телефона. Потом я узнал, что эти типсы больше нигде не достать. Так они стали ещё ценнее.</p>
+      <div class="clip clip--left"><span class="clip__staple"></span><div class="clip__t">два типа сексуальной жизни</div><p>трахаться-трахаться — или один-два партнёра, и последний навсегда. мы с машей выбрали второе: с одним можно познать куда больше.</p><div class="clip__src">из канала · @ssexytips · 18+</div></div>
+    </section>
+
+    <div class="quote"><p data-rise>«ТЫ КЛАССНЫЙ.<br>ТЫ <span class="hot">СВОЙ</span>. У НАС<br>ОДИН <span class="o">ВАЙБ</span>»</p></div>
+
+    <section class="beat">
+      <div class="beat__num" data-rise><i></i>03 · РЕШЕНИЕ</div>
+      <h2 data-rise>взял яйца в кулак</h2>
+      <p data-rise>Я всегда работал в найме, в продажах, и был в топе. Зарабатывал, отказывался от повышений — потому что сфера была не моя. Вкладывался наполовину, и этого хватало быть лучшим. Это как встречаться не по любви.</p>
+      <p data-rise>И вот я взял яйца в кулак и уволился. <span class="hot">В никуда.</span> Сначала — безделье и депрессия: оказалось, я не умею отдыхать. Когда наконец научился слышать себя — пришло время действовать. Сейчас или никогда.</p>
+      <div class="clip clip--right"><span class="clip__staple"></span><div class="clip__t">тройничек на день рождения</div><p>друзья зашли поздравить и ушли — не все. в ту минуту тишины, когда остались втроём, мы поняли, чем всё закончится. и приступили.</p><div class="clip__src">из канала · @ssexytips · 18+</div></div>
+    </section>
+
+    <figure class="shot" data-sl><img src="assets/img/tg_11.jpg" alt="маша и валера"><figcaption>МАША И ВАЛЕРА</figcaption></figure>
+
+    <section class="beat r">
+      <div class="beat__num" data-rise><i></i>04 · МАША</div>
+      <h2 data-rise>влюбился сразу и навсегда</h2>
+      <p data-rise>Мы познакомились в Мутаборе, на хэллоуинской вечеринке, в 10:34 утра. <span class="hot">Я влюбился сразу и навсегда.</span> Первое свидание — тур по барам, штук восемь за вечер. В новый год я впервые в жизни предложил девушке встречаться: хотел войти в новую жизнь уже парой.</p>
+      <p data-rise>Маша — художник и дизайнер, самый творческий человек, что я знаю. Когда мы сидели дома и брейнштормили про мерч, всё сошлось: sexy tips, но на футболке.</p>
+    </section>
+
+    <section class="beat">
+      <div class="beat__num" data-rise><i></i>05 · КАК ПОЯВИЛСЯ</div>
+      <h2 data-rise>первая уехала в европу</h2>
+      <p data-rise>Друг как раз занимался текстилём — собрали первую партию. Завели телеграм-канал, сняли первый фотосет: мы с Машей полуголые в нашей квартире, со всем реквизитом. Опубликованное — лайт по сравнению с тем, что осталось на плёнке.</p>
+      <p data-rise>Запустили таймер на дроп, спамили друзьям. Первую футболку купил наш друг в подарок девушке в Германию — так <span class="hot">первая уехала сразу в Европу</span>. Возили заказы через полгорода пешком, зимой. Денег мало — но людям заходило. И нам самим.</p>
+    </section>
+
+    <figure class="shot r wide" data-sr><img src="assets/img/look_a.jpg" alt="туса sexy tips"><figcaption>ТУСА · IRL</figcaption></figure>
+
+    <section class="beat">
+      <div class="beat__num" data-rise><i></i>06 · ДЛЯ СВОИХ</div>
+      <h2 data-rise>андеграунд-комьюнити</h2>
+      <p data-rise>Канал жил, люди помнили. На тусовках делали комплименты, спрашивали, где купить. Футболки разъезжались по городам — Москва, Питер. Эксклюзив с рисунком Маши засветился на одном из мощнейших сетов в Мутаборе.</p>
+      <p data-rise>Бренд стал андеграундным комьюнити <span class="hot">для своих</span>. Но он должен увидеть свет.</p>
+      <div class="clip clip--right"><span class="clip__staple"></span><div class="clip__t">сексуальное взросление</div><p>решили с пацанами увидеть настоящую женскую грудь. неделями не ели в столовой, копили, скинулись — и оплатили мгновение счастья.</p><div class="clip__src">из канала · @ssexytips · 18+</div></div>
+    </section>
+
+    <div class="quote"><p data-rise>МЫ НЕ БРЕНД.<br>МЫ <span class="o">СУБКУЛЬТУРА</span></p></div>
+
+    <section class="beat r">
+      <div class="beat__num" data-rise><i></i>07 · СУТЬ</div>
+      <h2 data-rise>узнавать друг друга</h2>
+      <p data-rise>Я всегда был в какой-то субкультуре со своим узнаваемым стилем: неформал, эмо, рокер. Мне нравились люди, которых видно — по которым понятно, что они в теме. Позже я собрал свой стиль: ярко, модно, не скромно. Не брендовое — <span class="hot">собранное из себя</span>.</p>
+      <p data-rise>Через sexy tips я хочу собрать своё комьюнити. Свою субкультуру. Людей, которые не боятся экспериментов, осуждения и кривых взглядов. Творческих, со вкусом и своей изюминкой. Я не хочу нести великий смысл — хочу, чтобы люди узнавали в sexy tips друг друга, знакомились и самовыражались.</p>
+    </section>
+
+    <figure class="shot" data-sl><img src="assets/img/look_c.jpg" alt="диджей в кресте"><figcaption>RAVE · КРЕСТ</figcaption></figure>
+
+    <section class="dna__end">
+      <svg viewBox="0 0 100 90" aria-hidden="true" data-rise style="width:58px;height:58px;filter:drop-shadow(0 0 18px rgba(255,31,61,.6))"><path fill="#ff1f3d" d="M50 84C50 84 6 56 6 28 6 12 18 4 30 8 40 11 47 20 50 28 53 20 60 11 70 8 82 4 94 12 94 28 94 56 50 84 50 84Z"/></svg>
+      <h2 data-rise>СУБКУЛЬТУРА СЕКСИ ТИПОВ <span class="hot">НАЧИНАЕТСЯ С ТЕБЯ</span></h2>
+      <p data-rise><a class="btn btn--hot" href="/catalog" data-magnet="0.25" data-cursor="го"><span>ВЕСЬ КАТАЛОГ <span class="arr">→</span></span></a></p>
+    </section>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <a class="brand" href="/">
+          <svg class="brand__heart" viewBox="0 0 100 90" aria-hidden="true" style="width:34px;height:34px"><path fill="#ff1f3d" d="M50 84C50 84 6 56 6 28 6 12 18 4 30 8 40 11 47 20 50 28 53 20 60 11 70 8 82 4 94 12 94 28 94 56 50 84 50 84Z"/></svg>
+          <span class="brand__name" style="font-size:30px">SEXY TIPS</span>
+        </a>
+        <p>СУБКУЛЬТУРА СЕКСИ ТИПОВ. ГРАНЖ / ТРЭШ / ТЕХНО-АНДЕГРАУНД МЕРЧ ИЗ МОСКВЫ.</p>
+      </div>
+      <div class="foot__col">
+        <h5>НАВИГАЦИЯ</h5>
+        <a href="/">ГЛАВНАЯ</a>
+        <a href="/dna">ДНК</a>
+        <a href="/catalog">КАТАЛОГ</a>
+      </div>
+      <div class="foot__col">
+        <h5>СВЯЗЬ / ЗАКАЗ</h5>
+        <a href="https://t.me/ssexytips" target="_blank" rel="noopener">КАНАЛ @SSEXYTIPS</a>
+        <a href="https://t.me/velsenpai" target="_blank" rel="noopener">ЗАКАЗ @VELSENPAI</a>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© <span data-year>2026</span> SEXY TIPS · СУБКУЛЬТУРА СЕКСИ ТИПОВ</span>
+      <span>SEXY TIPS НАЧИНАЕТСЯ С ТЕБЯ ❤</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<script>
+  (function(){
+    // появление элементов
+    var els = document.querySelectorAll('[data-rise],[data-sl],[data-sr]');
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.2});
+      els.forEach(function(el){io.observe(el);});
+    } else { els.forEach(function(el){el.classList.add('in');}); }
+
+    // нить всегда видна целиком; по ней едет сердце-пульс при скролле
+    var path=document.getElementById('thread'), bead=document.getElementById('bead'),
+        thread=document.querySelector('.dna__thread');
+    if(!path) return;
+    var L=path.getTotalLength();
+    var ticking=false;
+    function draw(){
+      var max=document.documentElement.scrollHeight-innerHeight;
+      var sc=window.pageYOffset||document.documentElement.scrollTop;
+      var p=max>0?Math.min(1,Math.max(0,sc/max)):0;
+      var pt=path.getPointAtLength(L*p);              // x в 0..100 (viewBox), y в 0..1400
+      var tw=thread.clientWidth, th=thread.clientHeight;
+      bead.style.transform='translate('+(pt.x/100*tw)+'px,'+(pt.y/1400*th)+'px)';
+      ticking=false;
+    }
+    addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(draw);ticking=true;}},{passive:true});
+    addEventListener('resize',draw); draw();
+  })();
+</script>
+</body>
+</html>
