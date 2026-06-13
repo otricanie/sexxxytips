@@ -27,9 +27,6 @@
       radial-gradient(36vw 22vh at 20% 86%, rgba(255,31,61,.14),  transparent 60%),
       radial-gradient(40vw 22vh at 80% 97%, rgba(255,31,110,.12), transparent 60%)}
 
-  /* бегущие строки во всю ширину внутри ленты */
-  .dna__flow .marquee{position:relative;left:50%;width:100vw;margin:clamp(46px,8vh,96px) -50vw;z-index:3}
-
   /* нить на фоне */
   .dna__thread{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
   .dna__thread svg{width:100%;height:100%;display:block;
@@ -38,84 +35,68 @@
     filter:drop-shadow(0 0 12px rgba(255,31,61,.9));transition:opacity .4s}
   .dna__bead svg{width:100%;height:100%;display:block}
 
-  .dna__flow{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,60px) clamp(60px,10vh,120px)}
+  /* лента кино-глав со снап-скроллом */
+  html{scroll-snap-type:y proximity}
+  .dna__reel{position:relative;z-index:2}
+  .cut{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(92px,13vh,150px) 0;scroll-snap-align:center}
+  .cut__inner{position:relative;z-index:3;width:100%;max-width:1180px;margin:0 auto;padding:0 clamp(22px,5vw,64px)}
+
+  /* фон-фото кадра */
+  .cut__bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .cut__bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) contrast(1.06) brightness(.42)}
+  .cut__bg::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(6,5,7,.95) 0%,rgba(6,5,7,.62) 44%,rgba(6,5,7,.25) 100%),
+               linear-gradient(0deg,rgba(6,5,7,.92) 0%,transparent 50%)}
+
+  /* гигантский номер */
+  .cut__no{position:absolute;z-index:1;top:clamp(54px,10vh,110px);right:clamp(4px,3vw,48px);
+    font-family:var(--f-disp);font-weight:900;font-size:clamp(140px,27vw,440px);line-height:.64;
+    color:transparent;-webkit-text-stroke:1.6px rgba(255,255,255,.10);letter-spacing:-.06em;pointer-events:none;user-select:none}
+
+  /* эйбрау / заголовок / текст */
+  .cut__eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.32em;color:var(--hot);text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .cut__eyebrow i{width:34px;height:1px;background:var(--hot)}
+  .cut h2{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.035em;font-size:clamp(38px,7.4vw,116px);margin-bottom:26px;max-width:15ch}
+  .cut__text{max-width:640px}
+  .cut__text p{font-family:var(--f-body);font-size:clamp(16px,1.55vw,21px);line-height:1.68;color:var(--chrome2)}
+  .cut__text p+p{margin-top:16px}
+  .cut__text .hot{color:var(--hot);font-weight:600}
+
+  /* откровенная вставка «из канала» */
+  .cut__aside{margin-top:30px;max-width:560px;border-left:2px solid var(--hot);padding-left:18px}
+  .cut__aside .l{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--hot);display:block;margin-bottom:7px}
+  .cut__aside p{font-family:var(--f-body);font-style:italic;font-size:clamp(14.5px,1.4vw,18px);line-height:1.5;color:var(--bone)}
+
+  /* кадр-цитата */
+  .cut--quote{text-align:center}
+  .cut--quote .cut__inner{max-width:1100px}
+  .cut--quote .q{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.94;letter-spacing:-.035em;font-size:clamp(42px,9.2vw,150px)}
+  .cut--quote .o{color:transparent;-webkit-text-stroke:1.5px var(--bone)}
+  .cut--quote .hot{color:var(--hot)}
 
   /* интро */
-  .dna__hero{min-height:96svh;display:flex;flex-direction:column;justify-content:center;gap:22px;max-width:900px}
-  .dna__hero .tag{font-family:var(--f-mono);font-size:clamp(11px,1.3vw,14px);letter-spacing:.34em;text-transform:uppercase;color:var(--hot);display:flex;align-items:center;gap:14px;border:0;background:none;padding:0}
-  .dna__hero .tag i{width:42px;height:1px;background:var(--hot)}
-  .dna__hero h1{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.86;letter-spacing:-.03em;font-size:clamp(48px,10.5vw,144px)}
-  .dna__hero .lead{font-family:var(--f-mono);font-size:clamp(12px,1.4vw,15px);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);max-width:52ch;line-height:2}
-  .dna__hint{font-family:var(--f-mono);font-size:11px;letter-spacing:.3em;color:var(--mut2);text-transform:uppercase;margin-top:18px}
-
-  /* ===== сцена: текст + визуал по обе стороны нити, без пустых боков ===== */
-  .scene{position:relative;display:grid;grid-template-columns:1fr;gap:30px;align-items:center;margin:clamp(64px,13vh,156px) 0}
-  @media(min-width:820px){
-    .scene{grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,86px)}
-    .scene.r .scene__text{order:2}
-    .scene.r .scene__side{order:1}
-  }
-  .scene__text{position:relative;z-index:2}
-  .scene__text .beat{max-width:none;margin:0}
-  .scene__side{position:relative;z-index:2;display:flex;flex-direction:column;gap:22px;justify-content:center;align-items:flex-start}
-  /* призрачный гигантский номер главы — заполняет фон */
-  .scene__num{position:absolute;z-index:0;top:50%;left:-3%;transform:translateY(-50%);
-    font-family:var(--f-disp);font-weight:900;font-size:clamp(150px,23vw,330px);line-height:.78;
-    color:transparent;-webkit-text-stroke:1.4px rgba(255,255,255,.07);letter-spacing:-.05em;pointer-events:none;user-select:none}
-  .scene.r .scene__num{left:auto;right:-3%}
-  @media(max-width:819px){.scene__num{font-size:36vw;top:-4%;transform:none;-webkit-text-stroke-color:rgba(255,255,255,.05)}}
-
-  /* текстовые куски */
-  .beat{max-width:480px;margin:clamp(70px,12vh,150px) 0}
-  .beat.r{text-align:right}
-  .beat__num{font-family:var(--f-mono);font-size:12px;letter-spacing:.3em;color:var(--hot);text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:18px}
-  .beat.r .beat__num{justify-content:flex-end}
-  .beat__num i{width:30px;height:1px;background:var(--hot)}
-  .beat h2{font-family:var(--f-disp);font-weight:800;text-transform:uppercase;line-height:1;letter-spacing:-.02em;font-size:clamp(26px,4vw,46px);margin-bottom:22px}
-  .beat p{font-family:var(--f-body);font-size:clamp(15.5px,1.45vw,19px);line-height:1.78;color:var(--chrome2)}
-  .beat p+p{margin-top:18px}
-  .beat .hot{color:var(--hot);font-weight:600}
-
-  /* большие выноски-цитаты поверх нити */
-  .quote{margin:clamp(80px,15vh,200px) auto;max-width:1000px;text-align:center;position:relative;z-index:2}
-  .quote p{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.98;letter-spacing:-.02em;font-size:clamp(30px,6vw,82px)}
-  .quote .o{color:transparent;-webkit-text-stroke:1.3px var(--bone)}
-  .quote .hot{color:var(--hot)}
-
-  /* фото */
-  .shot{position:relative;width:100%;margin:0;overflow:hidden;border:1px solid var(--line-strong)}
-  .shot img{width:100%;display:block;filter:grayscale(.2) contrast(1.04) brightness(.92)}
-  .shot figcaption{position:absolute;left:12px;bottom:10px;font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone);text-shadow:0 1px 8px #000}
-
-  /* вырезки из канала — будто наскоро пришпилены степлером */
-  .clip{position:relative;width:min(340px,100%);padding:20px 20px 16px;background:#e9e3d4;color:#181318;
-    box-shadow:0 18px 40px rgba(0,0,0,.6);font-family:var(--f-body);transform:rotate(-2.2deg);z-index:3}
-  .scene.r .clip{transform:rotate(2deg)}
-  .clip__t{font-style:italic;font-size:11.5px;letter-spacing:.02em;color:#8a1f2e;margin-bottom:9px;line-height:1.3}
-  .clip p{font-size:14.5px;line-height:1.5;color:#1c1620}
-  .clip__src{margin-top:12px;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#857a6b}
-  .clip__staple{position:absolute;top:-5px;left:50%;width:34px;height:9px;transform:translateX(-50%) rotate(-8deg);
-    background:linear-gradient(180deg,#f4f4f7,#bcbcc4 55%,#7c7c84);border-radius:2px;box-shadow:0 3px 6px rgba(0,0,0,.5)}
-  .clip__staple::before,.clip__staple::after{content:"";position:absolute;top:7px;width:4px;height:6px;background:#6b6b73;border-radius:0 0 1px 1px}
-  .clip__staple::before{left:1px}.clip__staple::after{right:1px}
+  .cut--hero .tag{font-family:var(--f-mono);font-size:clamp(11px,1.3vw,14px);letter-spacing:.34em;text-transform:uppercase;color:var(--hot);display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .cut--hero .tag i{width:42px;height:1px;background:var(--hot)}
+  .cut--hero h1{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.84;letter-spacing:-.045em;font-size:clamp(42px,8.2vw,116px);white-space:nowrap}
+  .cut--hero .lead{font-family:var(--f-mono);font-size:clamp(12px,1.4vw,15px);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);max-width:52ch;line-height:2;margin-top:24px}
+  .cut--hero .hint{font-family:var(--f-mono);font-size:11px;letter-spacing:.3em;color:var(--mut2);text-transform:uppercase;margin-top:32px}
 
   /* финал */
-  .dna__end{min-height:80svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:26px}
-  .dna__end h2{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.96;letter-spacing:-.03em;font-size:clamp(34px,7vw,104px);max-width:18ch}
-  .dna__end .hot{color:var(--hot)}
+  .cut--end{text-align:center}
+  .cut--end h2{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.94;letter-spacing:-.03em;font-size:clamp(38px,8vw,120px);max-width:16ch;margin:0 auto 34px}
+  .cut--end .hot{color:var(--hot)}
 
-  /* анимации появления */
+  /* появление */
   [data-rise]{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
   [data-rise].in{opacity:1;transform:none}
-  [data-sl]{opacity:0;transform:translateX(-70px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
-  [data-sr]{opacity:0;transform:translateX(70px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
-  [data-sl].in,[data-sr].in{opacity:1;transform:none}
 
   @media(max-width:760px){
-    .beat,.shot{max-width:100%;width:100%;text-align:left!important;margin:clamp(48px,9vh,90px) 0}
-    .beat.r{margin-left:0}.beat.r .beat__num{justify-content:flex-start}
-    .shot.r{margin-left:0}
-    [data-sl],[data-sr]{transform:translateY(40px)}
+    .cut{min-height:90svh;padding:clamp(76px,11vh,110px) 0}
+    .cut h2{font-size:clamp(34px,10vw,62px)}
+    .cut__no{font-size:46vw;top:auto;bottom:6%;right:2%}
+    .cut--hero h1{white-space:normal}
+    .cut--quote .q{font-size:13vw}
   }
   @media (prefers-reduced-motion:reduce){[data-rise],[data-sl],[data-sr]{opacity:1!important;transform:none!important}}
 </style>
@@ -162,136 +143,122 @@
     <svg viewBox="0 0 100 90"><path fill="#ff1f3d" d="M50 84C50 84 6 56 6 28 6 12 18 4 30 8 40 11 47 20 50 28 53 20 60 11 70 8 82 4 94 12 94 28 94 56 50 84 50 84Z"/></svg>
   </div>
 
-  <div class="dna__flow">
+  <div class="dna__reel">
 
-    <section class="dna__hero">
-      <div class="tag" data-rise><i></i>ДНК БРЕНДА</div>
-      <h1 class="glitch chrome" data-txt="НЕ ДЛЯ СКРОМНЫХ" data-rise>НЕ ДЛЯ<br>СКРОМНЫХ</h1>
-      <p class="lead" data-rise>sexy tips придумали вдвоём — <span class="hot">маша и валера</span>. дальше дописали ночи, рейвы и люди, которые узнают своих с одного взгляда. ниже — как личная одержимость стала субкультурой. одна нить, листай по ней.</p>
-      <div class="dna__hint" data-rise>↓ листай</div>
-    </section>
-
-    <div class="marquee marquee--hot" aria-hidden="true">
-      <div class="marquee__track">
-        <span class="marquee__item">НЕ ДЛЯ СКРОМНЫХ</span>
-        <span class="marquee__item">ДНК · МАША + ВАЛЕРА</span>
-        <span class="marquee__item">СУБКУЛЬТУРА СЕКСИ ТИПОВ</span>
-        <span class="marquee__item">ОДНА НИТЬ</span>
-        <span class="marquee__item">МОСКВА · 18+</span>
-      </div>
-    </div>
-
-    <section class="scene">
-      <span class="scene__num" aria-hidden="true">01</span>
-      <div class="scene__text"><div class="beat" data-rise>
-        <div class="beat__num"><i></i>01 · ТИПСЫ</div>
-        <h2 class="glitch chrome" data-txt="те самые типсы">те самые типсы</h2>
-        <p>Бросил курить — остался на самокрутке. Сигарета, но не сигарета: ритуал для вечеров, когда хочется громче. Бумага, табак, фильтр. А иногда — <span class="hot">типс</span>.</p>
-        <p>Однажды попались те самые — <span class="hot">sexy tips</span>. Женщины с принта, отпечатанные на картоне. Скрутил — красиво скурил. Взял две пачки и жёг только по тем поводам, что помнишь годами.</p>
-      </div></div>
-      <div class="scene__side">
-        <figure class="shot" data-sr><img src="assets/img/tg_19.jpg" alt="sexy tips"><figcaption>ИЗ КАНАЛА · @SSEXYTIPS</figcaption></figure>
-        <div class="clip"><span class="clip__staple"></span><div class="clip__t">однажды на вписке</div><p>все разошлись — она осталась. дверь закрылась, и понеслось. грубо, по-животному — а по ощущениям мягко. очень.</p><div class="clip__src">из канала · @ssexytips · 18+</div></div>
+    <section class="cut cut--hero">
+      <div class="cut__inner">
+        <div class="tag" data-rise><i></i>ДНК БРЕНДА</div>
+        <h1 class="glitch chrome" data-txt="НЕ ДЛЯ СКРОМНЫХ" data-rise>НЕ ДЛЯ<br>СКРОМНЫХ</h1>
+        <p class="lead" data-rise>sexy tips придумали вдвоём — <span class="hot">маша и валера</span>. дальше дописали ночи, рейвы и люди, которые узнают своих с одного взгляда. ниже — как личная одержимость стала субкультурой. одна нить, листай по ней.</p>
+        <div class="hint" data-rise>↓ листай</div>
       </div>
     </section>
 
-    <section class="scene r">
-      <span class="scene__num" aria-hidden="true">02</span>
-      <div class="scene__text"><div class="beat r" data-rise>
-        <div class="beat__num"><i></i>02 · ТРАДИЦИЯ</div>
-        <h2 class="glitch chrome" data-txt="дарил своим">дарил своим</h2>
-        <p>Завёл правило: один такой типс — самому яркому в комнате. Не за красоту. За то, что ты <span class="hot">свой</span>, что у нас один пульс. Просил скрутить в лучший момент — и вспомнить, от кого.</p>
-        <p>Почти никто не курил. Прятали в паспорт, в кошелёк, под чехол. А когда оказалось, что больше их нигде не достать, каждый стал реликвией.</p>
-      </div></div>
-      <div class="scene__side">
-        <div class="clip"><span class="clip__staple"></span><div class="clip__t">два типа сексуальной жизни</div><p>коллекционировать тела — или одного, и навсегда. мы с машей выбрали второе. с одним заходишь куда глубже.</p><div class="clip__src">из канала · @ssexytips · 18+</div></div>
+    <section class="cut">
+      <div class="cut__bg"><img src="assets/img/tg_19.jpg" alt=""></div>
+      <span class="cut__no" aria-hidden="true">01</span>
+      <div class="cut__inner">
+        <div class="cut__eyebrow" data-rise><i></i>01 · ТИПСЫ</div>
+        <h2 class="glitch chrome" data-txt="те самые типсы" data-rise>те самые типсы</h2>
+        <div class="cut__text" data-rise>
+          <p>Бросил курить — остался на самокрутке. Сигарета, но не сигарета: ритуал для вечеров, когда хочется громче. Бумага, табак, фильтр. А иногда — <span class="hot">типс</span>.</p>
+          <p>Однажды попались те самые — <span class="hot">sexy tips</span>. Женщины с принта, отпечатанные на картоне. Скрутил — красиво скурил. Взял две пачки и жёг только по тем поводам, что помнишь годами.</p>
+        </div>
+        <div class="cut__aside" data-rise><span class="l">из канала · @ssexytips · 18+</span><p>«все разошлись — она осталась. дверь закрылась, и понеслось. грубо, по-животному — а по ощущениям мягко. очень.»</p></div>
       </div>
     </section>
 
-    <div class="quote"><p class="glitch" data-txt="ТЫ СВОЙ. У НАС ОДИН ПУЛЬС" data-rise>ТЫ <span class="hot">СВОЙ</span>.<br>У НАС ОДИН <span class="o">ПУЛЬС</span></p></div>
-
-    <section class="scene">
-      <span class="scene__num" aria-hidden="true">03</span>
-      <div class="scene__text"><div class="beat" data-rise>
-        <div class="beat__num"><i></i>03 · РЕШЕНИЕ</div>
-        <h2 class="glitch chrome" data-txt="ушёл в никуда">ушёл в никуда</h2>
-        <p>Годами продавал и был в топе. Деньги, цифры, отказы от повышения — потому что сцена была не моя. Работал вполсилы, и этого хватало. Как роман без любви: всё на месте, а внутри тихо.</p>
-        <p>И я выдохнул и ушёл. <span class="hot">В никуда.</span> Сначала накрыло — оказалось, бездельничать тоже надо уметь. А как научился слышать себя, понял: сейчас или никогда.</p>
-      </div></div>
-      <div class="scene__side">
-        <div class="clip"><span class="clip__staple"></span><div class="clip__t">тройничок на день рождения</div><p>гости поздравили и разошлись — не все. в ту минуту тишины, когда нас осталось трое, всё было понятно без слов.</p><div class="clip__src">из канала · @ssexytips · 18+</div></div>
+    <section class="cut">
+      <span class="cut__no" aria-hidden="true">02</span>
+      <div class="cut__inner">
+        <div class="cut__eyebrow" data-rise><i></i>02 · ТРАДИЦИЯ</div>
+        <h2 class="glitch chrome" data-txt="дарил своим" data-rise>дарил своим</h2>
+        <div class="cut__text" data-rise>
+          <p>Завёл правило: один такой типс — самому яркому в комнате. Не за красоту. За то, что ты <span class="hot">свой</span>, что у нас один пульс. Просил скрутить в лучший момент — и вспомнить, от кого.</p>
+          <p>Почти никто не курил. Прятали в паспорт, в кошелёк, под чехол. А когда оказалось, что больше их нигде не достать, каждый стал реликвией.</p>
+        </div>
+        <div class="cut__aside" data-rise><span class="l">из канала · @ssexytips · 18+</span><p>«коллекционировать тела — или одного, и навсегда. мы с машей выбрали второе. с одним заходишь куда глубже.»</p></div>
       </div>
     </section>
 
-    <section class="scene r">
-      <span class="scene__num" aria-hidden="true">04</span>
-      <div class="scene__text"><div class="beat r" data-rise>
-        <div class="beat__num"><i></i>04 · МАША</div>
-        <h2 class="glitch chrome" data-txt="маша">маша</h2>
-        <p>Мутабор, хэллоуин, 10:34 утра. Влюбился сразу и насовсем. Первое свидание растянулось на восемь баров за ночь. Под куранты впервые в жизни позвал девушку быть моей — не хотел входить в новый год один.</p>
-        <p>Маша — художница, самый живой человек, кого я знаю. Сидели дома, фантазировали про мерч — и щёлкнуло: <span class="hot">sexy tips, но на футболке</span>.</p>
-      </div></div>
-      <div class="scene__side">
-        <figure class="shot" data-sl><img src="assets/img/tg_11.jpg" alt="маша и валера"><figcaption>МАША И ВАЛЕРА</figcaption></figure>
+    <section class="cut cut--quote">
+      <div class="cut__inner"><p class="q glitch" data-txt="ТЫ СВОЙ. У НАС ОДИН ПУЛЬС" data-rise>ТЫ <span class="hot">СВОЙ</span>.<br>У НАС ОДИН <span class="o">ПУЛЬС</span></p></div>
+    </section>
+
+    <section class="cut">
+      <span class="cut__no" aria-hidden="true">03</span>
+      <div class="cut__inner">
+        <div class="cut__eyebrow" data-rise><i></i>03 · РЕШЕНИЕ</div>
+        <h2 class="glitch chrome" data-txt="ушёл в никуда" data-rise>ушёл в никуда</h2>
+        <div class="cut__text" data-rise>
+          <p>Годами продавал и был в топе. Деньги, цифры, отказы от повышения — потому что сцена была не моя. Работал вполсилы, и этого хватало. Как роман без любви: всё на месте, а внутри тихо.</p>
+          <p>И я выдохнул и ушёл. <span class="hot">В никуда.</span> Сначала накрыло — оказалось, бездельничать тоже надо уметь. А как научился слышать себя, понял: сейчас или никогда.</p>
+        </div>
+        <div class="cut__aside" data-rise><span class="l">из канала · @ssexytips · 18+</span><p>«гости поздравили и разошлись — не все. в ту минуту тишины, когда нас осталось трое, всё было понятно без слов.»</p></div>
       </div>
     </section>
 
-    <section class="scene">
-      <span class="scene__num" aria-hidden="true">05</span>
-      <div class="scene__text"><div class="beat" data-rise>
-        <div class="beat__num"><i></i>05 · КАК ПОЯВИЛСЯ</div>
-        <h2 class="glitch chrome" data-txt="первая — сразу в европу">первая — сразу в европу</h2>
-        <p>Друг возил текстиль — собрали первую партию. Сняли первый сет: мы вдвоём, почти без всего, в своей квартире. То, что выложили, — самая мягкая версия того, что было.</p>
-        <p>Таймер на дроп, обзвон всех подряд. Первую футболку купил друг — в подарок девушке в Германию. Так sexy tips <span class="hot">сразу уехал в Европу</span>. Заказы носили через полгорода пешком, зимой. Денег почти ноль — но отклик был.</p>
-      </div></div>
-      <div class="scene__side">
-        <figure class="shot" data-sr><img src="assets/img/look_a.jpg" alt="туса sexy tips"><figcaption>ТУСА · IRL</figcaption></figure>
+    <section class="cut">
+      <div class="cut__bg"><img src="assets/img/tg_11.jpg" alt=""></div>
+      <span class="cut__no" aria-hidden="true">04</span>
+      <div class="cut__inner">
+        <div class="cut__eyebrow" data-rise><i></i>04 · МАША</div>
+        <h2 class="glitch chrome" data-txt="маша" data-rise>маша</h2>
+        <div class="cut__text" data-rise>
+          <p>Мутабор, хэллоуин, 10:34 утра. Влюбился сразу и насовсем. Первое свидание растянулось на восемь баров за ночь. Под куранты впервые в жизни позвал девушку быть моей — не хотел входить в новый год один.</p>
+          <p>Маша — художница, самый живой человек, кого я знаю. Сидели дома, фантазировали про мерч — и щёлкнуло: <span class="hot">sexy tips, но на футболке</span>.</p>
+        </div>
       </div>
     </section>
 
-    <section class="scene r">
-      <span class="scene__num" aria-hidden="true">06</span>
-      <div class="scene__text"><div class="beat r" data-rise>
-        <div class="beat__num"><i></i>06 · ДЛЯ СВОИХ</div>
-        <h2 class="glitch chrome" data-txt="для своих">для своих</h2>
-        <p>Канал жил даже на паузе. На улице ловили комплименты и один вопрос: где взять? Футболки расходились по городам — Москва, Питер. Принт Маши засветился на одном из самых жёстких сетов в Мутаборе.</p>
-        <p>Бренд стал тихим клубом <span class="hot">для своих</span>. Но такое не держат в тени.</p>
-      </div></div>
-      <div class="scene__side">
-        <div class="clip"><span class="clip__staple"></span><div class="clip__t">сексуальное взросление</div><p>подростками скинулись, чтобы впервые увидеть настоящую женскую грудь. неделями не ели в столовой, копили. оплатили мгновение — и повзрослели.</p><div class="clip__src">из канала · @ssexytips · 18+</div></div>
+    <section class="cut">
+      <div class="cut__bg"><img src="assets/img/look_a.jpg" alt=""></div>
+      <span class="cut__no" aria-hidden="true">05</span>
+      <div class="cut__inner">
+        <div class="cut__eyebrow" data-rise><i></i>05 · КАК ПОЯВИЛСЯ</div>
+        <h2 class="glitch chrome" data-txt="первая — сразу в европу" data-rise>первая — сразу в европу</h2>
+        <div class="cut__text" data-rise>
+          <p>Друг возил текстиль — собрали первую партию. Сняли первый сет: мы вдвоём, почти без всего, в своей квартире. То, что выложили, — самая мягкая версия того, что было.</p>
+          <p>Таймер на дроп, обзвон всех подряд. Первую футболку купил друг — в подарок девушке в Германию. Так sexy tips <span class="hot">сразу уехал в Европу</span>. Заказы носили через полгорода пешком, зимой. Денег почти ноль — но отклик был.</p>
+        </div>
       </div>
     </section>
 
-    <div class="marquee marquee--ice" aria-hidden="true">
-      <div class="marquee__track">
-        <span class="marquee__item">САМОКРУТКА</span>
-        <span class="marquee__item">ТИПС</span>
-        <span class="marquee__item">РЕЙВ</span>
-        <span class="marquee__item">МУТАБОР</span>
-        <span class="marquee__item">ВПИСКА</span>
-        <span class="marquee__item">ЛЮБОВЬ БЕЗ ТОРМОЗОВ</span>
-        <span class="marquee__item">ДЛЯ СВОИХ</span>
-      </div>
-    </div>
-
-    <div class="quote"><p class="glitch" data-txt="МЫ НЕ БРЕНД. МЫ СУБКУЛЬТУРА" data-rise>МЫ НЕ БРЕНД.<br>МЫ <span class="o">СУБКУЛЬТУРА</span></p></div>
-
-    <section class="scene">
-      <span class="scene__num" aria-hidden="true">07</span>
-      <div class="scene__text"><div class="beat" data-rise>
-        <div class="beat__num"><i></i>07 · СУТЬ</div>
-        <h2 class="glitch chrome" data-txt="узнавать своих">узнавать своих</h2>
-        <p>Я всегда жил внутри какой-то сцены — там, где человека видно по одежде, где свой находит своего. Потом собрал собственный код: ярко, дерзко, без скромности. Не лейблы — <span class="hot">образ, собранный из себя</span>.</p>
-        <p>sexy tips — чтобы таких собрать в одном месте. Тех, кто не боится взглядов, осуждения и своих желаний. Я не учу жизни. Хочу, чтобы в принте люди узнавали друг друга — и знакомились.</p>
-      </div></div>
-      <div class="scene__side">
-        <figure class="shot" data-sr><img src="assets/img/look_c.jpg" alt="диджей в кресте"><figcaption>RAVE · КРЕСТ</figcaption></figure>
+    <section class="cut">
+      <span class="cut__no" aria-hidden="true">06</span>
+      <div class="cut__inner">
+        <div class="cut__eyebrow" data-rise><i></i>06 · ДЛЯ СВОИХ</div>
+        <h2 class="glitch chrome" data-txt="для своих" data-rise>для своих</h2>
+        <div class="cut__text" data-rise>
+          <p>Канал жил даже на паузе. На улице ловили комплименты и один вопрос: где взять? Футболки расходились по городам — Москва, Питер. Принт Маши засветился на одном из самых жёстких сетов в Мутаборе.</p>
+          <p>Бренд стал тихим клубом <span class="hot">для своих</span>. Но такое не держат в тени.</p>
+        </div>
+        <div class="cut__aside" data-rise><span class="l">из канала · @ssexytips · 18+</span><p>«подростками скинулись, чтобы впервые увидеть настоящую женскую грудь. неделями не ели в столовой, копили. оплатили мгновение — и повзрослели.»</p></div>
       </div>
     </section>
 
-    <section class="dna__end">
-      <h2 class="glitch" data-txt="СУБКУЛЬТУРА СЕКСИ ТИПОВ НАЧИНАЕТСЯ С ТЕБЯ" data-rise>СУБКУЛЬТУРА СЕКСИ ТИПОВ <span class="hot">НАЧИНАЕТСЯ С ТЕБЯ</span></h2>
-      <p data-rise><a class="btn btn--hot" href="/catalog" data-magnet="0.25" data-cursor="го"><span>ВЕСЬ КАТАЛОГ <span class="arr">→</span></span></a></p>
+    <section class="cut cut--quote">
+      <div class="cut__inner"><p class="q glitch" data-txt="МЫ НЕ БРЕНД. МЫ СУБКУЛЬТУРА" data-rise>МЫ НЕ БРЕНД.<br>МЫ <span class="o">СУБКУЛЬТУРА</span></p></div>
+    </section>
+
+    <section class="cut">
+      <div class="cut__bg"><img src="assets/img/look_c.jpg" alt=""></div>
+      <span class="cut__no" aria-hidden="true">07</span>
+      <div class="cut__inner">
+        <div class="cut__eyebrow" data-rise><i></i>07 · СУТЬ</div>
+        <h2 class="glitch chrome" data-txt="узнавать своих" data-rise>узнавать своих</h2>
+        <div class="cut__text" data-rise>
+          <p>Я всегда жил внутри какой-то сцены — там, где человека видно по одежде, где свой находит своего. Потом собрал собственный код: ярко, дерзко, без скромности. Не лейблы — <span class="hot">образ, собранный из себя</span>.</p>
+          <p>sexy tips — чтобы таких собрать в одном месте. Тех, кто не боится взглядов, осуждения и своих желаний. Я не учу жизни. Хочу, чтобы в принте люди узнавали друг друга — и знакомились.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cut cut--end">
+      <div class="cut__inner">
+        <h2 class="glitch" data-txt="СУБКУЛЬТУРА СЕКСИ ТИПОВ НАЧИНАЕТСЯ С ТЕБЯ" data-rise>СУБКУЛЬТУРА СЕКСИ ТИПОВ <span class="hot">НАЧИНАЕТСЯ С ТЕБЯ</span></h2>
+        <p data-rise><a class="btn btn--hot" href="/catalog" data-magnet="0.25" data-cursor="го"><span>ВЕСЬ КАТАЛОГ <span class="arr">→</span></span></a></p>
+      </div>
     </section>
 
   </div>
