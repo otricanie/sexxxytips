@@ -15,6 +15,21 @@
   /* ===== DNA — сквозная лента со скролл-историей ===== */
   .dna{position:relative;background:var(--void);overflow:hidden}
 
+  /* атмосферные блики на фоне — распределены по всей высоте, чтобы не было плоского чёрного */
+  .dna__glow{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(38vw 22vh at 12% 4%,  rgba(255,31,61,.16),  transparent 60%),
+      radial-gradient(40vw 22vh at 90% 15%, rgba(214,31,141,.13), transparent 60%),
+      radial-gradient(34vw 20vh at 18% 31%, rgba(125,60,255,.12), transparent 60%),
+      radial-gradient(40vw 22vh at 84% 45%, rgba(255,31,61,.14),  transparent 60%),
+      radial-gradient(34vw 20vh at 14% 60%, rgba(214,31,141,.12), transparent 60%),
+      radial-gradient(40vw 22vh at 88% 73%, rgba(125,60,255,.11), transparent 60%),
+      radial-gradient(36vw 22vh at 20% 86%, rgba(255,31,61,.14),  transparent 60%),
+      radial-gradient(40vw 22vh at 80% 97%, rgba(255,31,110,.12), transparent 60%)}
+
+  /* бегущие строки во всю ширину внутри ленты */
+  .dna__flow .marquee{position:relative;left:50%;width:100vw;margin:clamp(46px,8vh,96px) -50vw;z-index:3}
+
   /* нить на фоне */
   .dna__thread{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
   .dna__thread svg{width:100%;height:100%;display:block;
@@ -133,6 +148,7 @@
 </nav>
 
 <main class="dna">
+  <div class="dna__glow" aria-hidden="true"></div>
   <!-- нить на фоне -->
   <div class="dna__thread" aria-hidden="true">
     <svg viewBox="0 0 100 1400" preserveAspectRatio="none">
@@ -150,16 +166,26 @@
 
     <section class="dna__hero">
       <div class="tag" data-rise><i></i>ДНК БРЕНДА</div>
-      <h1 data-rise>НЕ ДЛЯ<br>СКРОМНЫХ</h1>
+      <h1 class="glitch chrome" data-txt="НЕ ДЛЯ СКРОМНЫХ" data-rise>НЕ ДЛЯ<br>СКРОМНЫХ</h1>
       <p class="lead" data-rise>sexy tips придумали вдвоём — <span class="hot">маша и валера</span>. дальше дописали ночи, рейвы и люди, которые узнают своих с одного взгляда. ниже — как личная одержимость стала субкультурой. одна нить, листай по ней.</p>
       <div class="dna__hint" data-rise>↓ листай</div>
     </section>
+
+    <div class="marquee marquee--hot" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item">НЕ ДЛЯ СКРОМНЫХ</span>
+        <span class="marquee__item">ДНК · МАША + ВАЛЕРА</span>
+        <span class="marquee__item">СУБКУЛЬТУРА СЕКСИ ТИПОВ</span>
+        <span class="marquee__item">ОДНА НИТЬ</span>
+        <span class="marquee__item">МОСКВА · 18+</span>
+      </div>
+    </div>
 
     <section class="scene">
       <span class="scene__num" aria-hidden="true">01</span>
       <div class="scene__text"><div class="beat" data-rise>
         <div class="beat__num"><i></i>01 · ТИПСЫ</div>
-        <h2>те самые типсы</h2>
+        <h2 class="glitch chrome" data-txt="те самые типсы">те самые типсы</h2>
         <p>Бросил курить — остался на самокрутке. Сигарета, но не сигарета: ритуал для вечеров, когда хочется громче. Бумага, табак, фильтр. А иногда — <span class="hot">типс</span>.</p>
         <p>Однажды попались те самые — <span class="hot">sexy tips</span>. Женщины с принта, отпечатанные на картоне. Скрутил — красиво скурил. Взял две пачки и жёг только по тем поводам, что помнишь годами.</p>
       </div></div>
@@ -173,7 +199,7 @@
       <span class="scene__num" aria-hidden="true">02</span>
       <div class="scene__text"><div class="beat r" data-rise>
         <div class="beat__num"><i></i>02 · ТРАДИЦИЯ</div>
-        <h2>дарил своим</h2>
+        <h2 class="glitch chrome" data-txt="дарил своим">дарил своим</h2>
         <p>Завёл правило: один такой типс — самому яркому в комнате. Не за красоту. За то, что ты <span class="hot">свой</span>, что у нас один пульс. Просил скрутить в лучший момент — и вспомнить, от кого.</p>
         <p>Почти никто не курил. Прятали в паспорт, в кошелёк, под чехол. А когда оказалось, что больше их нигде не достать, каждый стал реликвией.</p>
       </div></div>
@@ -182,13 +208,13 @@
       </div>
     </section>
 
-    <div class="quote"><p data-rise>ТЫ <span class="hot">СВОЙ</span>.<br>У НАС ОДИН <span class="o">ПУЛЬС</span></p></div>
+    <div class="quote"><p class="glitch" data-txt="ТЫ СВОЙ. У НАС ОДИН ПУЛЬС" data-rise>ТЫ <span class="hot">СВОЙ</span>.<br>У НАС ОДИН <span class="o">ПУЛЬС</span></p></div>
 
     <section class="scene">
       <span class="scene__num" aria-hidden="true">03</span>
       <div class="scene__text"><div class="beat" data-rise>
         <div class="beat__num"><i></i>03 · РЕШЕНИЕ</div>
-        <h2>ушёл в никуда</h2>
+        <h2 class="glitch chrome" data-txt="ушёл в никуда">ушёл в никуда</h2>
         <p>Годами продавал и был в топе. Деньги, цифры, отказы от повышения — потому что сцена была не моя. Работал вполсилы, и этого хватало. Как роман без любви: всё на месте, а внутри тихо.</p>
         <p>И я выдохнул и ушёл. <span class="hot">В никуда.</span> Сначала накрыло — оказалось, бездельничать тоже надо уметь. А как научился слышать себя, понял: сейчас или никогда.</p>
       </div></div>
@@ -201,7 +227,7 @@
       <span class="scene__num" aria-hidden="true">04</span>
       <div class="scene__text"><div class="beat r" data-rise>
         <div class="beat__num"><i></i>04 · МАША</div>
-        <h2>маша</h2>
+        <h2 class="glitch chrome" data-txt="маша">маша</h2>
         <p>Мутабор, хэллоуин, 10:34 утра. Влюбился сразу и насовсем. Первое свидание растянулось на восемь баров за ночь. Под куранты впервые в жизни позвал девушку быть моей — не хотел входить в новый год один.</p>
         <p>Маша — художница, самый живой человек, кого я знаю. Сидели дома, фантазировали про мерч — и щёлкнуло: <span class="hot">sexy tips, но на футболке</span>.</p>
       </div></div>
@@ -214,7 +240,7 @@
       <span class="scene__num" aria-hidden="true">05</span>
       <div class="scene__text"><div class="beat" data-rise>
         <div class="beat__num"><i></i>05 · КАК ПОЯВИЛСЯ</div>
-        <h2>первая — сразу в европу</h2>
+        <h2 class="glitch chrome" data-txt="первая — сразу в европу">первая — сразу в европу</h2>
         <p>Друг возил текстиль — собрали первую партию. Сняли первый сет: мы вдвоём, почти без всего, в своей квартире. То, что выложили, — самая мягкая версия того, что было.</p>
         <p>Таймер на дроп, обзвон всех подряд. Первую футболку купил друг — в подарок девушке в Германию. Так sexy tips <span class="hot">сразу уехал в Европу</span>. Заказы носили через полгорода пешком, зимой. Денег почти ноль — но отклик был.</p>
       </div></div>
@@ -227,7 +253,7 @@
       <span class="scene__num" aria-hidden="true">06</span>
       <div class="scene__text"><div class="beat r" data-rise>
         <div class="beat__num"><i></i>06 · ДЛЯ СВОИХ</div>
-        <h2>для своих</h2>
+        <h2 class="glitch chrome" data-txt="для своих">для своих</h2>
         <p>Канал жил даже на паузе. На улице ловили комплименты и один вопрос: где взять? Футболки расходились по городам — Москва, Питер. Принт Маши засветился на одном из самых жёстких сетов в Мутаборе.</p>
         <p>Бренд стал тихим клубом <span class="hot">для своих</span>. Но такое не держат в тени.</p>
       </div></div>
@@ -236,13 +262,25 @@
       </div>
     </section>
 
-    <div class="quote"><p data-rise>МЫ НЕ БРЕНД.<br>МЫ <span class="o">СУБКУЛЬТУРА</span></p></div>
+    <div class="marquee marquee--ice" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item">САМОКРУТКА</span>
+        <span class="marquee__item">ТИПС</span>
+        <span class="marquee__item">РЕЙВ</span>
+        <span class="marquee__item">МУТАБОР</span>
+        <span class="marquee__item">ВПИСКА</span>
+        <span class="marquee__item">ЛЮБОВЬ БЕЗ ТОРМОЗОВ</span>
+        <span class="marquee__item">ДЛЯ СВОИХ</span>
+      </div>
+    </div>
+
+    <div class="quote"><p class="glitch" data-txt="МЫ НЕ БРЕНД. МЫ СУБКУЛЬТУРА" data-rise>МЫ НЕ БРЕНД.<br>МЫ <span class="o">СУБКУЛЬТУРА</span></p></div>
 
     <section class="scene">
       <span class="scene__num" aria-hidden="true">07</span>
       <div class="scene__text"><div class="beat" data-rise>
         <div class="beat__num"><i></i>07 · СУТЬ</div>
-        <h2>узнавать своих</h2>
+        <h2 class="glitch chrome" data-txt="узнавать своих">узнавать своих</h2>
         <p>Я всегда жил внутри какой-то сцены — там, где человека видно по одежде, где свой находит своего. Потом собрал собственный код: ярко, дерзко, без скромности. Не лейблы — <span class="hot">образ, собранный из себя</span>.</p>
         <p>sexy tips — чтобы таких собрать в одном месте. Тех, кто не боится взглядов, осуждения и своих желаний. Я не учу жизни. Хочу, чтобы в принте люди узнавали друг друга — и знакомились.</p>
       </div></div>
@@ -252,8 +290,7 @@
     </section>
 
     <section class="dna__end">
-      <svg viewBox="0 0 100 90" aria-hidden="true" data-rise style="width:58px;height:58px;filter:drop-shadow(0 0 18px rgba(255,31,61,.6))"><path fill="#ff1f3d" d="M50 84C50 84 6 56 6 28 6 12 18 4 30 8 40 11 47 20 50 28 53 20 60 11 70 8 82 4 94 12 94 28 94 56 50 84 50 84Z"/></svg>
-      <h2 data-rise>СУБКУЛЬТУРА СЕКСИ ТИПОВ <span class="hot">НАЧИНАЕТСЯ С ТЕБЯ</span></h2>
+      <h2 class="glitch" data-txt="СУБКУЛЬТУРА СЕКСИ ТИПОВ НАЧИНАЕТСЯ С ТЕБЯ" data-rise>СУБКУЛЬТУРА СЕКСИ ТИПОВ <span class="hot">НАЧИНАЕТСЯ С ТЕБЯ</span></h2>
       <p data-rise><a class="btn btn--hot" href="/catalog" data-magnet="0.25" data-cursor="го"><span>ВЕСЬ КАТАЛОГ <span class="arr">→</span></span></a></p>
     </section>
 
@@ -305,12 +342,13 @@
     if(!path) return;
     var L=path.getTotalLength();
     var ticking=false;
+    var FRAC=0.66;   // бусина держится примерно на 2/3 высоты экрана
     function draw(){
-      var max=document.documentElement.scrollHeight-innerHeight;
-      var sc=window.pageYOffset||document.documentElement.scrollTop;
-      var p=max>0?Math.min(1,Math.max(0,sc/max)):0;
-      var pt=path.getPointAtLength(L*p);              // x в 0..100 (viewBox), y в 0..1400
       var tw=thread.clientWidth, th=thread.clientHeight;
+      var sc=window.pageYOffset||document.documentElement.scrollTop;
+      // точка на нити = позиция документа, которая сейчас на 2/3 экрана
+      var p=th>0?Math.min(1,Math.max(0,(sc+FRAC*innerHeight)/th)):0;
+      var pt=path.getPointAtLength(L*p);              // x в 0..100 (viewBox), y в 0..1400
       bead.style.transform='translate('+(pt.x/100*tw)+'px,'+(pt.y/1400*th)+'px)';
       ticking=false;
     }
