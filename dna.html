@@ -66,6 +66,8 @@
   .cluster--r{grid-template-columns:minmax(0,1fr) minmax(0,430px)}
   .cluster--r .note{order:2}
   .cluster--r .extras{order:1}
+  .cluster--solo{grid-template-columns:1fr;justify-items:center;text-align:left}
+  .cluster--solo .note{max-width:660px;transform:rotate(-1deg)}
 
   /* бумажная записка с текстом */
   .note{position:relative;z-index:4;width:100%;background:#ece6d6;color:#191319;
@@ -100,9 +102,22 @@
   .stub .l{font-family:var(--f-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#cf0e2d;display:block;margin-bottom:8px;border-bottom:1px dashed #c9c2b0;padding-bottom:7px}
   .stub p{font-family:var(--f-body);font-style:italic;font-size:13.5px;line-height:1.5}
 
+  /* карточка-факт о бренде */
+  .spec{position:relative;z-index:6;width:min(286px,94%);background:#ece6d6;color:#1a141a;padding:20px 20px 18px;
+    box-shadow:0 18px 42px rgba(0,0,0,.55);transform:rotate(-2deg)}
+  .cluster--r .spec{transform:rotate(2deg)}
+  .spec .l{font-family:var(--f-mark);color:#cf0e2d;font-size:15px;margin-bottom:12px;display:block}
+  .spec .row{display:flex;justify-content:space-between;gap:14px;font-family:var(--f-mono);font-size:11px;
+    letter-spacing:.06em;text-transform:uppercase;padding:8px 0;border-bottom:1px dashed #c3bca8;color:#5a4f56}
+  .spec .row span:last-child{color:#16121a;font-weight:700}
+  .spec .row:last-child{border-bottom:0;padding-bottom:0}
+
   /* кнопка-пин */
   .pin{position:absolute;z-index:7;width:17px;height:17px;border-radius:50%;
     background:radial-gradient(circle at 34% 30%,#ff8a99,#c11026 70%);box-shadow:0 4px 7px rgba(0,0,0,.6),inset 0 -2px 3px rgba(0,0,0,.3)}
+
+  /* построчный глитч — каждая строка свой data-txt, дубль не съезжает */
+  .gl-line{display:block}
 
   /* маркерные/рукописные подписи в колонке деталей */
   .mk{font-family:var(--f-mark);color:var(--hot);font-size:clamp(16px,1.9vw,26px);line-height:.95;transform:rotate(-5deg);text-align:center}
@@ -119,6 +134,12 @@
   .spray .o{color:transparent;-webkit-text-stroke:1.5px var(--bone)}
   .spray .hot{color:var(--hot)}
   .spray .tape-x{font-family:var(--f-mark);display:block;font-size:clamp(14px,1.6vw,22px);color:var(--hot);transform:rotate(-3deg);margin-top:14px}
+
+  /* карточка-ссылка на канал — справа от записки «цель» */
+  .tg-card{position:relative;z-index:4;max-width:440px}
+  .tg-card .kr{font-family:var(--f-mark);color:var(--hot);font-size:16px;display:block;margin-bottom:10px}
+  .tg-card h3{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;font-size:clamp(24px,3.1vw,42px);line-height:.96;letter-spacing:-.025em;margin-bottom:14px;color:var(--bone)}
+  .tg-card p{font-family:var(--f-body);font-size:clamp(14.5px,1.35vw,17px);line-height:1.6;color:var(--chrome2);margin-bottom:22px}
 
   /* финал */
   .wall-end{position:relative;z-index:3;text-align:center;padding:clamp(60px,11vh,150px) 0 clamp(20px,5vh,60px)}
@@ -141,6 +162,35 @@
     .deco>.hide-m{display:none}
   }
   @media (prefers-reduced-motion:reduce){[data-rise],[data-sl],[data-sr]{opacity:1!important;transform:none!important}}
+
+  /* ===== секретная кнопка-самокрутка ===== */
+  .secret{position:fixed;left:16px;bottom:16px;z-index:9400;border:0;background:none;
+    cursor:none;padding:6px;display:flex;align-items:center;opacity:.4;transition:opacity .3s,transform .3s}
+  .secret:hover{opacity:.95;transform:translateY(-2px) rotate(-2deg)}
+  .secret .roll{width:72px;height:30px;overflow:visible;filter:drop-shadow(0 3px 6px rgba(0,0,0,.55))}
+  .secret .st-glow{opacity:.55;animation:emberp 2s infinite}
+  .secret .st-tip{animation:emberp 2s infinite}
+  @keyframes emberp{0%,100%{opacity:.95}50%{opacity:.5}}
+  .secret__hint{position:absolute;left:64px;bottom:2px;white-space:nowrap;font-family:var(--f-hand);font-weight:700;
+    color:rgba(255,255,255,.5);font-size:18px;transform:rotate(-4deg);pointer-events:none;opacity:0;transition:opacity .3s}
+  .secret:hover .secret__hint{opacity:1}
+
+  .secret-pop{position:fixed;inset:0;z-index:11500;display:flex;align-items:center;justify-content:center;
+    background:rgba(4,3,5,.82);backdrop-filter:blur(6px);padding:24px}
+  .secret-pop[hidden]{display:none}
+  .secret-roll{position:relative;width:min(440px,92vw);background:#ece6d6;color:#1a141a;
+    padding:34px 32px 30px;box-shadow:0 30px 80px rgba(0,0,0,.7);transform-origin:left center;
+    animation:unroll .55s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes unroll{0%{transform:scaleX(.05) rotate(-6deg);filter:blur(2px)}60%{transform:scaleX(1.02) rotate(0)}100%{transform:scaleX(1) rotate(-1.2deg);filter:none}}
+  .secret-roll::after{content:"";position:absolute;top:-12px;left:40px;width:96px;height:26px;background:rgba(214,205,170,.5);transform:rotate(-5deg)}
+  .secret-roll .kr{font-family:var(--f-mark);color:#cf0e2d;font-size:15px;display:block;margin-bottom:12px}
+  .secret-roll h4{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;font-size:clamp(22px,3vw,30px);line-height:1;letter-spacing:-.02em;margin-bottom:14px}
+  .secret-roll p{font-family:var(--f-body);font-size:15px;line-height:1.55;color:#2a2330;margin-bottom:22px}
+  .secret-roll .btn{border-color:#1a141a;color:#1a141a}
+  .secret-roll .btn::before{background:var(--hot)}
+  .secret-roll .btn:hover{color:#fff;border-color:var(--hot)}
+  .secret-close{position:absolute;top:10px;right:12px;width:30px;height:30px;border:0;background:none;cursor:none;
+    font-family:var(--f-mark);font-size:22px;color:#1a141a;line-height:1}
 </style>
 <noscript><style>[data-rise],[data-sl],[data-sr]{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -189,52 +239,36 @@
 
     <div class="deco" aria-hidden="true">
       <span class="d-ghost" style="top:3%;left:-1%;font-size:23vw">ДНК</span>
-      <span class="d-scr" style="top:9%;right:6%;font-size:34px;transform:rotate(8deg)">о да ❤</span>
-      <span class="d-stamp" style="top:13%;left:7%;transform:rotate(-14deg)">секси типы · мск · 18+</span>
-      <span class="d-hand hide-m" style="top:18%;right:18%;font-size:30px;transform:rotate(5deg)">не для скромных</span>
-      <span class="d-heart" style="top:21%;left:20%;font-size:30px;transform:rotate(-12deg)">❤</span>
+      <span class="d-hand hide-m" style="top:17%;right:14%;font-size:30px;transform:rotate(5deg)">не для скромных</span>
       <span class="d-x" style="top:24%;right:9%;font-size:46px">✕</span>
-      <span class="d-scr" style="top:28%;left:4%;font-size:26px;transform:rotate(-9deg)">!!!</span>
-      <span class="d-hand hide-m" style="top:31%;left:33%;font-size:24px;transform:rotate(-4deg)">москва 24/7</span>
-      <span class="d-ghost" style="top:33%;right:-3%;font-size:18vw">18+</span>
-      <span class="d-scr" style="top:38%;right:4%;font-size:30px;transform:rotate(7deg)">горячо</span>
-      <span class="d-heart hide-m" style="top:42%;right:30%;font-size:22px;transform:rotate(10deg)">♡</span>
-      <span class="d-stamp" style="top:47%;right:3%;transform:rotate(11deg)">drop 01 · бэнгер</span>
-      <span class="d-hand" style="top:50%;left:2%;font-size:26px;transform:rotate(-6deg)">55.75°N 37.61°E</span>
-      <span class="d-scr" style="top:54%;left:14%;font-size:40px;transform:rotate(-8deg)">★</span>
-      <span class="d-x hide-m" style="top:57%;left:46%;font-size:38px">✕</span>
-      <span class="d-ghost" style="top:59%;left:-2%;font-size:20vw">♥</span>
-      <span class="d-scr" style="top:63%;right:5%;font-size:32px;transform:rotate(6deg)">вайб</span>
-      <span class="d-hand hide-m" style="top:67%;right:28%;font-size:28px;transform:rotate(-5deg)">скрути и помни</span>
-      <span class="d-heart" style="top:71%;left:8%;font-size:34px;transform:rotate(-10deg)">❤</span>
-      <span class="d-stamp" style="top:74%;left:4%;transform:rotate(-9deg)">только своим · 18+</span>
-      <span class="d-scr hide-m" style="top:78%;right:6%;font-size:28px;transform:rotate(9deg)">танцуй до утра</span>
-      <span class="d-ghost" style="top:81%;right:-2%;font-size:22vw">МСК</span>
-      <span class="d-x" style="top:85%;left:6%;font-size:42px">✕</span>
-      <span class="d-hand hide-m" style="top:89%;left:30%;font-size:26px;transform:rotate(4deg)">влюбляйся быстро</span>
-      <span class="d-scr" style="top:92%;right:8%;font-size:30px;transform:rotate(-7deg)">❤ 24/7</span>
+      <span class="d-hand hide-m" style="top:30%;left:30%;font-size:24px;transform:rotate(-4deg)">москва 24/7</span>
+      <span class="d-ghost" style="top:33%;right:-3%;font-size:18vw">♥</span>
+      <span class="d-hand" style="top:49%;left:2%;font-size:26px;transform:rotate(-6deg)">свой узнаёт своего</span>
+      <span class="d-x hide-m" style="top:56%;left:46%;font-size:38px">✕</span>
+      <span class="d-ghost" style="top:58%;left:-2%;font-size:20vw">МЫ</span>
+      <span class="d-hand hide-m" style="top:66%;right:24%;font-size:28px;transform:rotate(-5deg)">живи громче</span>
+      <span class="d-x" style="top:73%;left:8%;font-size:42px">✕</span>
+      <span class="d-ghost" style="top:80%;right:-2%;font-size:22vw">СВОИ</span>
+      <span class="d-hand hide-m" style="top:88%;left:28%;font-size:26px;transform:rotate(4deg)">не один такой</span>
     </div>
 
     <section class="wall-intro">
       <div class="tag" data-rise><i></i>ДНК БРЕНДА · 18+</div>
-      <h1 class="glitch chrome" data-txt="НЕ ДЛЯ СКРОМНЫХ" data-rise>НЕ ДЛЯ<br>СКРОМНЫХ</h1>
-      <p class="lead" data-rise>sexy tips придумали вдвоём — <span class="hot">маша и валера</span>. дальше дописали ночи, рейвы и люди, которые узнают своих с одного взгляда. ниже — как личная одержимость стала субкультурой.</p>
-      <span class="scrawl" data-rise>листай ↓ всё на одной нити</span>
+      <h1 data-rise><span class="gl-line glitch chrome" data-txt="НЕ ДЛЯ">НЕ ДЛЯ</span><span class="gl-line glitch chrome" data-txt="СКРОМНЫХ">СКРОМНЫХ</span></h1>
+      <p class="lead" data-rise>sexy tips придумали вдвоём — <span class="hot">маша и валера</span>. это не магазин одежды. это про то, чтобы найти своих и перестать прятать себя. ниже — зачем всё это и во что мы верим.</p>
     </section>
 
     <div class="cluster cluster--l" data-rise>
       <span class="gn" aria-hidden="true">01</span>
       <div class="note">
         <span class="pin" style="top:-6px;left:42%"></span>
-        <span class="k">01 · типсы</span>
-        <h3>те самые типсы</h3>
-        <p>Бросил курить — остался на самокрутке. Сигарета, но не сигарета: ритуал для вечеров, когда хочется громче. Бумага, табак, фильтр. А иногда — <u>типс</u>.</p>
-        <p>Однажды попались те самые — <span class="hot">sexy tips</span>. Женщины с принта на картоне. Скрутил — красиво скурил. Взял две пачки и жёг по тем поводам, что помнишь годами.</p>
+        <span class="k">01 · зачем мы</span>
+        <h3>чтобы ты был не один</h3>
+        <p>мы делаем это не ради футболок. мы хотим собрать своих — ярких, дерзких, тех, кто всю жизнь чувствовал себя «слишком» — в одном месте.</p>
+        <p>чтобы каждый понял: <span class="hot">таких, как ты, целая туса</span>. sexy tips — это пропуск к ним. надел — и тебя видно.</p>
       </div>
       <div class="extras">
-        <figure class="polaroid"><span class="pin" style="top:-7px;left:50%"></span><img src="assets/img/tg_19.jpg" alt=""><figcaption>те самые ❤</figcaption></figure>
-        <div class="stub"><span class="l">из канала · @ssexytips · 18+</span><p>«все разошлись — она осталась. дверь закрылась, и понеслось. грубо, по-животному — а по ощущениям мягко. очень.»</p></div>
-        <span class="mk">скрути ❤</span>
+        <figure class="polaroid"><span class="pin" style="top:-7px;left:50%"></span><img src="assets/img/look_a.jpg" alt=""><figcaption>свои в дикой среде</figcaption></figure>
       </div>
     </div>
 
@@ -242,36 +276,31 @@
       <span class="gn" aria-hidden="true">02</span>
       <div class="note">
         <span class="pin" style="top:-6px;left:46%"></span>
-        <span class="k">02 · традиция</span>
-        <h3>дарил своим</h3>
-        <p>Завёл правило: один такой типс — самому яркому в комнате. Не за красоту. За то, что ты <span class="hot">свой</span>, что у нас один пульс. Просил скрутить в лучший момент — и вспомнить, от кого.</p>
-        <p>Почти никто не курил. Прятали в паспорт, в кошелёк, под чехол. А когда оказалось, что больше их нигде не достать, каждый стал реликвией.</p>
+        <span class="k">02 · откуда «типс»</span>
+        <h3>начиналось с жеста</h3>
+        <p>всё выросло из маленькой традиции. была карточка-принт — «секси типса»: красивая женщина, отпечатанная на картоне. мы дарили такую самому яркому человеку на вечеринке.</p>
+        <p>это значило: <span class="hot">ты свой, у нас один вайб</span>. их не курили — прятали в кошелёк, на память. так из жеста родился бренд.</p>
       </div>
       <div class="extras">
-        <div class="stub"><span class="l">из канала · @ssexytips · 18+</span><p>«коллекционировать тела — или одного, и навсегда. мы с машей выбрали второе. с одним заходишь куда глубже.»</p></div>
-        <span class="hw">оставь на память →</span>
-        <span class="mk">свои ★</span>
+        <figure class="polaroid"><span class="pin" style="top:-7px;left:50%"></span><img src="assets/img/tg_19.jpg" alt=""><figcaption>наш вайб</figcaption></figure>
       </div>
     </div>
 
     <div class="spray">
-      <p class="glitch" data-txt="ТЫ СВОЙ. У НАС ОДИН ПУЛЬС" data-rise>ТЫ <span class="hot">СВОЙ</span>.<br>У НАС ОДИН <span class="o">ПУЛЬС</span></p>
-      <span class="tape-x">// один вайб на всех</span>
+      <p data-rise><span class="gl-line glitch" data-txt="ТЫ СВОЙ.">ТЫ <span class="hot">СВОЙ</span>.</span><span class="gl-line glitch" data-txt="У НАС ОДИН ПУЛЬС">У НАС ОДИН <span class="o">ПУЛЬС</span></span></p>
     </div>
 
     <div class="cluster cluster--l" data-rise>
       <span class="gn" aria-hidden="true">03</span>
       <div class="note">
         <span class="pin" style="top:-6px;left:40%"></span>
-        <span class="k">03 · решение</span>
-        <h3>ушёл в никуда</h3>
-        <p>Годами продавал и был в топе. Деньги, цифры, отказы от повышения — потому что сцена была не моя. Работал вполсилы, и этого хватало. Как роман без любви: всё на месте, а внутри тихо.</p>
-        <p>И я выдохнул и ушёл. <span class="hot">В никуда.</span> Сначала накрыло — оказалось, бездельничать тоже надо уметь. А как научился слышать себя, понял: сейчас или никогда.</p>
+        <span class="k">03 · во что верим</span>
+        <h3>живи громче</h3>
+        <p>мы верим, что скромность переоценена. что одеваться надо так, будто сегодня твоя ночь. что быть красивым не стыдно, а нескромным — тем более.</p>
+        <p>ночь, рейв, восхищённые чужие взгляды, свобода без осуждения. <span class="hot">это и есть наш вайб</span>.</p>
       </div>
       <div class="extras">
-        <div class="stub"><span class="l">из канала · @ssexytips · 18+</span><p>«гости поздравили и разошлись — не все. в ту минуту тишины, когда нас осталось трое, всё было понятно без слов.»</p></div>
-        <span class="hw">сейчас или никогда</span>
-        <span class="mk">ва-банк</span>
+        <figure class="polaroid"><span class="pin" style="top:-7px;left:50%"></span><img src="assets/img/look_c.jpg" alt=""><figcaption>наша ночь</figcaption></figure>
       </div>
     </div>
 
@@ -279,75 +308,77 @@
       <span class="gn" aria-hidden="true">04</span>
       <div class="note">
         <span class="pin" style="top:-6px;left:48%"></span>
-        <span class="k">04 · маша</span>
-        <h3>маша</h3>
-        <p>Мутабор, хэллоуин, 10:34 утра. Влюбился сразу и насовсем. Первое свидание растянулось на восемь баров за ночь. Под куранты впервые в жизни позвал девушку быть моей.</p>
-        <p>Маша — художница, самый живой человек, кого я знаю. Сидели дома, фантазировали про мерч — и щёлкнуло: <span class="hot">sexy tips, но на футболке</span>.</p>
+        <span class="k">04 · для кого</span>
+        <h3>свой узнаёт своего</h3>
+        <p>для тех, кого видно издалека. кто не боится взглядов, ухмылок и «а что это на тебе?». творческих, со своей изюминкой, не нормисов.</p>
+        <p>ты надеваешь — и тебя считывают свои. <span class="hot">так свои и находят друг друга</span>.</p>
       </div>
       <div class="extras">
         <figure class="polaroid"><span class="pin" style="top:-7px;left:50%"></span><img src="assets/img/tg_11.jpg" alt=""><figcaption>маша + валера</figcaption></figure>
-        <span class="mk">10:34 ❤</span>
       </div>
+    </div>
+
+    <div class="spray">
+      <p data-rise><span class="gl-line glitch" data-txt="НАС ВИДНО">НАС <span class="hot">ВИДНО</span></span><span class="gl-line glitch" data-txt="В ТЕМНОТЕ">В <span class="o">ТЕМНОТЕ</span></span></p>
     </div>
 
     <div class="cluster cluster--l" data-rise>
       <span class="gn" aria-hidden="true">05</span>
       <div class="note">
-        <span class="pin" style="top:-6px;left:38%"></span>
-        <span class="k">05 · как появился</span>
-        <h3>первая — в европу</h3>
-        <p>Друг возил текстиль — собрали первую партию. Сняли первый сет: мы вдвоём, почти без всего, в своей квартире. То, что выложили, — самая мягкая версия того, что было.</p>
-        <p>Таймер на дроп, обзвон всех. Первую футболку купил друг — в подарок девушке в Германию. Так sexy tips <span class="hot">сразу уехал в Европу</span>. Заказы носили через полгорода пешком, зимой.</p>
-      </div>
-      <div class="extras">
-        <figure class="polaroid"><span class="pin" style="top:-7px;left:50%"></span><img src="assets/img/look_a.jpg" alt=""><figcaption>туса · irl</figcaption></figure>
-        <span class="hw">первая ушла за бугор!</span>
-      </div>
-    </div>
-
-    <div class="cluster cluster--r" data-rise>
-      <span class="gn" aria-hidden="true">06</span>
-      <div class="note">
-        <span class="pin" style="top:-6px;left:44%"></span>
-        <span class="k">06 · для своих</span>
-        <h3>для своих</h3>
-        <p>Канал жил даже на паузе. На улице ловили комплименты и один вопрос: где взять? Футболки расходились по городам — Москва, Питер. Принт Маши засветился на одном из самых жёстких сетов в Мутаборе.</p>
-        <p>Бренд стал тихим клубом <span class="hot">для своих</span>. Но такое не держат в тени.</p>
-      </div>
-      <div class="extras">
-        <div class="stub"><span class="l">из канала · @ssexytips · 18+</span><p>«подростками скинулись, чтобы впервые увидеть настоящую женскую грудь. неделями не ели в столовой, копили. оплатили мгновение — и повзрослели.»</p></div>
-        <span class="mk">андеграунд</span>
-      </div>
-    </div>
-
-    <div class="spray">
-      <p class="glitch" data-txt="МЫ НЕ БРЕНД. МЫ СУБКУЛЬТУРА" data-rise>МЫ НЕ БРЕНД.<br>МЫ <span class="o">СУБКУЛЬТУРА</span></p>
-      <span class="tape-x">// и это только начало</span>
-    </div>
-
-    <div class="cluster cluster--l" data-rise>
-      <span class="gn" aria-hidden="true">07</span>
-      <div class="note">
         <span class="pin" style="top:-6px;left:42%"></span>
-        <span class="k">07 · суть</span>
-        <h3>узнавать своих</h3>
-        <p>Я всегда жил внутри какой-то сцены — там, где человека видно по одежде, где свой находит своего. Потом собрал собственный код: ярко, дерзко, без скромности. Не лейблы — <span class="hot">образ, собранный из себя</span>.</p>
-        <p>sexy tips — чтобы таких собрать в одном месте. Тех, кто не боится взглядов, осуждения и своих желаний. Я не учу жизни. Хочу, чтобы в принте люди узнавали друг друга.</p>
+        <span class="k">05 · цель</span>
+        <h3>больше, чем одежда</h3>
+        <p>наша цель — чтобы это переросло нас самих. чтобы sexy tips стал не парой имён, а движением, в котором люди находят друг друга и себя.</p>
+        <p>мы не учим жизни и не несём великий смысл. мы просто <span class="hot">зажигаем своих</span> — остальное на тебе.</p>
       </div>
       <div class="extras">
-        <figure class="polaroid"><span class="pin" style="top:-7px;left:50%"></span><img src="assets/img/look_c.jpg" alt=""><figcaption>rave · крест</figcaption></figure>
-        <span class="mk">свой ✕ свой</span>
+        <div class="tg-card">
+          <span class="kr">истории · 18+</span>
+          <h3>самое личное — в канале</h3>
+          <p>здесь — идея и характер. а живые, откровенные истории из нашей жизни живут в телеграме: там 80% постов про настоящее.</p>
+          <a class="btn btn--hot" href="https://t.me/ssexytips" target="_blank" rel="noopener" data-magnet="0.2" data-cursor="го"><span>ЧИТАТЬ В TELEGRAM <span class="arr">→</span></span></a>
+        </div>
       </div>
     </div>
 
     <section class="wall-end">
-      <span class="scrawl" data-rise>увидимся на танцполе ❤</span>
-      <h2 class="glitch" data-txt="СУБКУЛЬТУРА СЕКСИ ТИПОВ НАЧИНАЕТСЯ С ТЕБЯ" data-rise>СУБКУЛЬТУРА СЕКСИ ТИПОВ <span class="hot">НАЧИНАЕТСЯ С ТЕБЯ</span></h2>
+      <h2 data-rise><span class="gl-line glitch" data-txt="СЕКСИ ТИПС">СЕКСИ ТИПС</span><span class="gl-line glitch" data-txt="НАЧИНАЕТСЯ С ТЕБЯ"><span class="hot">НАЧИНАЕТСЯ С ТЕБЯ</span></span></h2>
       <p data-rise><a class="btn btn--hot" href="/catalog" data-magnet="0.25" data-cursor="го"><span>ВЕСЬ КАТАЛОГ <span class="arr">→</span></span></a></p>
     </section>
 
   </div>
 </main>
+
+<!-- секретная кнопка-самокрутка -->
+<button class="secret" id="secretBtn" aria-label="секрет" data-cursor="тссс">
+  <svg class="roll" viewBox="0 0 84 34" aria-hidden="true">
+    <defs>
+      <linearGradient id="stPaper" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f2eada"/><stop offset=".55" stop-color="#d7cbac"/><stop offset="1" stop-color="#b3a684"/>
+      </linearGradient>
+      <radialGradient id="stEmber" cx="45%" cy="42%" r="60%">
+        <stop offset="0" stop-color="#ffe79a"/><stop offset=".45" stop-color="#ff6a2e"/><stop offset="1" stop-color="#a90d1e"/>
+      </radialGradient>
+      <filter id="stGlow" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="2.4"/></filter>
+    </defs>
+    <circle class="st-glow" cx="74" cy="15" r="7.5" fill="#ff5a2e" filter="url(#stGlow)"/>
+    <path d="M8,24 Q30,13 48,15 Q62,16.5 71,14" fill="none" stroke="url(#stPaper)" stroke-width="12" stroke-linecap="round"/>
+    <path d="M11,22.5 Q31,12.8 48,14.6 Q61,16 68,13.8" fill="none" stroke="rgba(85,62,32,.30)" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M9.5,26.5 Q30,16 47,17.6" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1" stroke-linecap="round"/>
+    <circle class="st-tip" cx="73" cy="14.5" r="4.6" fill="url(#stEmber)"/>
+    <circle cx="75.5" cy="13.4" r="1.5" fill="#33291f" opacity=".55"/>
+  </svg>
+  <span class="secret__hint">тссс… только для своих</span>
+</button>
+<div class="secret-pop" id="secretPop" hidden>
+  <div class="secret-roll" role="dialog" aria-modal="true">
+    <button class="secret-close" id="secretClose" aria-label="закрыть" data-cursor="закрыть">✕</button>
+    <span class="kr">секретная типса · 18+</span>
+    <h4 id="secretTitle">—</h4>
+    <p id="secretText">—</p>
+    <button class="btn btn--hot secret-more" id="secretMore" data-cursor="ещё"><span>ЕЩЁ ОДНУ <span class="arr">↻</span></span></button>
+  </div>
+</div>
 
 <footer class="foot">
   <div class="wrap">
@@ -387,6 +418,34 @@
       var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.2});
       els.forEach(function(el){io.observe(el);});
     } else { els.forEach(function(el){el.classList.add('in');}); }
+
+    // секретная кнопка-самокрутка → разворачивается свёртка с настоящей историей
+    var sBtn=document.getElementById('secretBtn'),
+        sPop=document.getElementById('secretPop'),
+        sClose=document.getElementById('secretClose'),
+        sMore=document.getElementById('secretMore'),
+        sTitle=document.getElementById('secretTitle'),
+        sText=document.getElementById('secretText'),
+        sRoll=sPop&&sPop.querySelector('.secret-roll');
+    var STORIES=[
+      {t:'однажды на вписке',p:'вписка на пике, все разошлись — она осталась. дверь захлопнулась, и понеслось. грубо, по-животному — а по ощущениям мягко. очень понравилось.'},
+      {t:'два типа',p:'грубо говоря, секс делится надвое: коллекционировать тела — или одного, и навсегда. мы с машей выбрали второе. с одним заходишь куда глубже.'},
+      {t:'тройничок на др',p:'гости поздравили и разошлись — не все. в ту минуту тишины, когда нас осталось трое, всё было понятно без слов. и мы приступили.'},
+      {t:'сексуальное взросление',p:'подростками скинулись, чтобы впервые увидеть настоящую женскую грудь. неделями не ели в столовой, копили. оплатили мгновение — и повзрослели.'},
+      {t:'та самая типса',p:'я дарил такую типсу самому яркому человеку на тусе. её не курили — прятали в кошелёк, под чехол, на память. знак, что ты свой.'}
+    ];
+    if(sBtn&&sPop&&sTitle&&sText){
+      var si=0;
+      var render=function(){sTitle.textContent=STORIES[si].t;sText.textContent='«'+STORIES[si].p+'»';};
+      var roll=function(){if(sRoll){sRoll.style.animation='none';sRoll.offsetHeight;sRoll.style.animation='';}};
+      var openSecret=function(){si=Math.floor(Math.random()*STORIES.length);render();sPop.hidden=false;roll();};
+      var closeSecret=function(){sPop.hidden=true;};
+      sBtn.addEventListener('click',openSecret);
+      sMore&&sMore.addEventListener('click',function(){si=(si+1)%STORIES.length;render();roll();});
+      sClose&&sClose.addEventListener('click',closeSecret);
+      sPop.addEventListener('click',function(e){if(e.target===sPop)closeSecret();});
+      document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSecret();});
+    }
 
     // нить всегда видна целиком; по ней едет сердце-пульс при скролле
     var path=document.getElementById('thread'), bead=document.getElementById('bead'),
